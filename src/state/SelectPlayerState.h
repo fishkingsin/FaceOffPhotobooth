@@ -38,8 +38,50 @@
 class SelectPlayerState : public Apex::ofxState<SharedData>
 {
 public:
+public:
     void setup(){
-		image.loadImage("images/selectplayer.png");
+		
+		image.loadImage("images/index.png");
+		//float dim = 16; 
+		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
+		//float length = 255-xInit; 
+		gui = new ofxUICanvas(ofGetWidth()/2, ofGetHeight()/2-61, 284*2,122);
+		
+		button = new ofxUIImageButton(284,122, true, "GUI/images/1player.png","1Player");
+		gui->addWidgetDown(button);
+		button = new ofxUIImageButton(284,122, true, "GUI/images/2player.png","2Player");
+		gui->addWidgetLeft(button);
+		//button->setVidible(true);
+		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
+		gui->setDrawBack(false);
+		gui->setVisible(false);
+	}
+	void guiEvent(ofxUIEventArgs &e)
+	{
+		string name = e.widget->getName(); 
+		int kind = e.widget->getKind(); 
+		if(name == "1Player")
+		{
+			ofxUIImageButton *btn = (ofxUIImageButton *) e.widget; 
+			//cout << "IMAGEBTN " << btn->getValue() << endl; 
+			if(btn->getValue()==1)
+			{
+				getSharedData().numPlayer = 1;
+				changeState("PlayState");
+				
+			}
+		}
+		if(name == "2Player")
+		{
+			ofxUIImageButton *btn = (ofxUIImageButton *) e.widget; 
+			//cout << "IMAGEBTN " << btn->getValue() << endl; 
+			if(btn->getValue()==1)
+			{
+				getSharedData().numPlayer = 2;
+				changeState("PlayState");
+				
+			}
+		}
 	}
 	void update(){}
 	void draw(){
@@ -47,17 +89,29 @@ public:
 		ofEnableAlphaBlending();
 		ofSetColor(255);
 		image.draw(0,0);
+		button->drawFillHighlight();
 		ofPopStyle();
+		gui->draw();
 	}
 	void mouseMoved(int x, int y) {}
     void mouseDragged(int x, int y, int button) {}
     void mousePressed(int x, int y, int button) {}
     void mouseReleased(int x, int y, int button) {}
-    void stateExit(){}
+    void stateExit(){
+		gui->setVisible(false);
+	}
+	void stateEnter()
+	{
+		gui->setVisible(true);
+	}
     void keyPressed(int key) {}
     void keyReleased(int key) {}
-    string getName(){ return "SelectPlayerState";}
+    
 	ofImage image ;
+	ofxUICanvas *gui; 
+    ofxUIImageButton *button ;
+    string getName(){ return "SelectPlayerState";}
+
 
     
 };

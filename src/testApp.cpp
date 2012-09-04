@@ -66,7 +66,7 @@ void testApp::setup(){
 	stateMachine.addState(new SelectPlayerState());
 	stateMachine.addState(new PlayState());
 	stateMachine.addState(new EditState());
-	stateMachine.changeState("PlayState");
+	stateMachine.changeState("IndexState");
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
     stateMachine.getSharedData().numPlayer = 2;
@@ -86,7 +86,7 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    ofBackgroundGradient(ofColor::black, ofColor(50,50,50));
+    ofBackgroundGradient(ofColor(50,50,50) , ofColor::black);
 }
 void testApp::exit()
 {
@@ -107,6 +107,12 @@ void testApp::keyPressed(int key){
             break;
         case OF_KEY_F2:
             stateMachine.changeState("EditState");
+            break;
+		case OF_KEY_F3:
+            stateMachine.changeState("IndexState");
+            break;
+        case OF_KEY_F4:
+            stateMachine.changeState("SelectPlayerState");
             break;
 		case 's':
             stateMachine.getSharedData().panel.saveSettings();
