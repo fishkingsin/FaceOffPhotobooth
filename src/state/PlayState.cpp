@@ -57,9 +57,9 @@ void PlayState::setup(){
 	
 	capturedScreen.allocate(camW,camH);
 	screenWidth = camW*ratio;
-
+	
 	screenHeight = ofGetHeight();
-
+	
     for(int j = 0 ;j < MAX_PLAYER ; j++)
     {
 		
@@ -160,10 +160,10 @@ void PlayState::update(){
         if (getSharedData().xml.pushTag("DATA")) {
 			getSharedData().xml.setValue("COUNTER", getSharedData().counter);
 			getSharedData().xml.popTag();
-		
-		
+			
+			
         }
-        getSharedData().xml.saveFile();
+        getSharedData().save();	
         if(getSharedData().numPlayer==1)
         {
             string file_name = getSharedData().lastFileNames.back();

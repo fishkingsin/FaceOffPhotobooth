@@ -45,12 +45,10 @@ public:
 		//float dim = 16; 
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
-		gui = new ofxUICanvas(ofGetWidth()/2, ofGetHeight()/2-61, 284*2,122);
+		gui = new ofxUICanvas(0,0,ofGetWidth(), ofGetHeight());//ofGetWidth()/2, ofGetHeight()/2-61, 284*2,122);
 		
-		button = new ofxUIImageButton(284,122, true, "GUI/images/1player.png","1Player");
-		gui->addWidgetDown(button);
-		button = new ofxUIImageButton(284,122, true, "GUI/images/2player.png","2Player");
-		gui->addWidgetLeft(button);
+		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(ofGetWidth()*0.5,ofGetHeight(), true, "GUI/images/1player.png","ONE_PLAYER"));
+		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(ofGetWidth()*0.5,ofGetHeight(), true, "GUI/images/2player.png","TWO_PLAYER"));
 		//button->setVidible(true);
 		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
 		gui->setDrawBack(false);
@@ -60,10 +58,11 @@ public:
 	{
 		string name = e.widget->getName(); 
 		int kind = e.widget->getKind(); 
-		if(name == "1Player")
+		
+		if(name == "ONE_PLAYER")
 		{
 			ofxUIImageButton *btn = (ofxUIImageButton *) e.widget; 
-			//cout << "IMAGEBTN " << btn->getValue() << endl; 
+			cout << "ONE_PLAYER " << btn->getValue() << endl; 
 			if(btn->getValue()==1)
 			{
 				getSharedData().numPlayer = 1;
@@ -71,10 +70,10 @@ public:
 				
 			}
 		}
-		if(name == "2Player")
+		else if(name == "TWO_PLAYER")
 		{
 			ofxUIImageButton *btn = (ofxUIImageButton *) e.widget; 
-			//cout << "IMAGEBTN " << btn->getValue() << endl; 
+			cout << "TWO_PLAYER " << btn->getValue() << endl; 
 			if(btn->getValue()==1)
 			{
 				getSharedData().numPlayer = 2;
@@ -89,7 +88,7 @@ public:
 		ofEnableAlphaBlending();
 		ofSetColor(255);
 		image.draw(0,0);
-		button->drawFillHighlight();
+
 		ofPopStyle();
 		gui->draw();
 	}
@@ -102,6 +101,8 @@ public:
 	}
 	void stateEnter()
 	{
+				button1->drawFillHighlight();
+				button2->drawFillHighlight();
 		gui->setVisible(true);
 	}
     void keyPressed(int key) {}
@@ -109,9 +110,9 @@ public:
     
 	ofImage image ;
 	ofxUICanvas *gui; 
-    ofxUIImageButton *button ;
     string getName(){ return "SelectPlayerState";}
 
-
+	ofxUIButton  *button1;
+	ofxUIButton  *button2;
     
 };

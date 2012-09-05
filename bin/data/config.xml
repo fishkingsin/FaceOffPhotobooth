@@ -1,5 +1,4 @@
 <DATA>
-    <COUNTER>0</COUNTER>
     <COUNTDOWN>1</COUNTDOWN>
     <CAPTURE_PATH>/Library/WebServer/Documents/pic</CAPTURE_PATH>
     <DIGI>5</DIGI>

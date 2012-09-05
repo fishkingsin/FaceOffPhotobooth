@@ -46,6 +46,19 @@ public:
     ofxXmlSettings xml;
 	ofImage loadedImage;
     ofxAutoControlPanel panel;
+	void load()
+	{
+		counter = 0;
+		std::fstream ifs( "presets.bin", std::ios::in | std::ios::binary );
+		ifs.read( (char*) &counter, sizeof(counter) );
+		ifs.close();
+	}
+	void save()
+	{
+		std::fstream ofs( "presets.bin", std::ios::out | std::ios::binary );
+		ofs.write( (const char*)&counter, sizeof(counter) );
+		ofs.close();
+	}
 //    enum NUM_PALYER
 //    {
 //        ONE,TWO

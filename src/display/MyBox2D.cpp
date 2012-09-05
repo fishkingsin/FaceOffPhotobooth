@@ -34,15 +34,24 @@
 void MyBox2D::setup()
 {
     // Box2d
+	boundsA.set(0, 0, camW*0.5, camH);
+    boundsB.set(camW*0.5, 0, camW*0.5, camH);
     
-	for(int i = 0 ; i < MAX_PLAYER ; i++)
-	{
-	box2d[i].init();
-	box2d[i].setGravity(0, 0.5);
-    box2d[i].createBounds(camW*0.5*i,0,camW*0.5,camH);
-//	box2d.createGround();
-	box2d[i].setFPS(30);
-	}
+
+	
+	// setup world A
+    box2d[0].init();
+    box2d[0].setFPS(60);
+    box2d[0].setGravity(0, 0.5);
+    box2d[0].createBounds(boundsA);
+    box2d[0].registerGrabbing();
+	
+	
+	box2d[1].init();
+    box2d[1].setFPS(60);
+    box2d[1].setGravity(0, 0.5);
+    box2d[1].createBounds(boundsB);
+    box2d[1].registerGrabbing();
 }
 void MyBox2D::update()
 {

@@ -10,6 +10,7 @@
 		0546d1a38e13bd319cc9755b5ca7e1a0 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */; };
 		125506cd3e5f428aafe5cc657e873ba0 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = f399b91e98dc31cda6ddacb450bb19da /* ofxTCPManager.cpp */; };
 		169d3c72fde6c5590a1616f500a456b4 /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7b6a03390302d5a2c9f0e4ab630ae8d6 /* ofxCvFloatImage.cpp */; };
+		1B41316515F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B41316315F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp */; };
 		1BC0074A15F59931005AD984 /* CountDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0074815F59931005AD984 /* CountDown.cpp */; };
 		1BC0079215F59F5E005AD984 /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0074D15F59F5E005AD984 /* ofxTimer.cpp */; };
 		1BC0079715F59F5E005AD984 /* ofxEasing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0076E15F59F5E005AD984 /* ofxEasing.cpp */; };
@@ -230,6 +231,11 @@
 		1B1F3C6715F5F64C00EA6F0D /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWaveform.h; sourceTree = "<group>"; };
 		1B1F3C6815F5F64C00EA6F0D /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidget.h; sourceTree = "<group>"; };
 		1B1F3C6915F5F64C00EA6F0D /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
+		1B41315E15F6EA6700BAE320 /* EndState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndState.h; sourceTree = "<group>"; };
+		1B41316015F6EAFE00BAE320 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
+		1B41316115F6EAFE00BAE320 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		1B41316315F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTrueTypeFontUC.cpp; sourceTree = "<group>"; };
+		1B41316415F6EAFE00BAE320 /* ofxTrueTypeFontUC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTrueTypeFontUC.h; sourceTree = "<group>"; };
 		1B84F1EB15F0C11F002B8AD4 /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = "<group>"; };
 		1BB00C2615F5E5C00028628D /* IndexState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IndexState.h; sourceTree = "<group>"; };
 		1BB00C2715F5E64C0028628D /* SelectPlayerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectPlayerState.h; sourceTree = "<group>"; };
@@ -735,6 +741,26 @@
 				1B1F3C6715F5F64C00EA6F0D /* ofxUIWaveform.h */,
 				1B1F3C6815F5F64C00EA6F0D /* ofxUIWidget.h */,
 				1B1F3C6915F5F64C00EA6F0D /* ofxUIWidgetWithLabel.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		1B41315F15F6EAFE00BAE320 /* ofxTrueTypeFontUC */ = {
+			isa = PBXGroup;
+			children = (
+				1B41316015F6EAFE00BAE320 /* install.xml */,
+				1B41316115F6EAFE00BAE320 /* README */,
+				1B41316215F6EAFE00BAE320 /* src */,
+			);
+			name = ofxTrueTypeFontUC;
+			path = ../../../addons/ofxTrueTypeFontUC;
+			sourceTree = "<group>";
+		};
+		1B41316215F6EAFE00BAE320 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				1B41316315F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp */,
+				1B41316415F6EAFE00BAE320 /* ofxTrueTypeFontUC.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -1262,6 +1288,7 @@
 		516DF7AB15EFA4D7001F9898 /* state */ = {
 			isa = PBXGroup;
 			children = (
+				1B41315E15F6EA6700BAE320 /* EndState.h */,
 				1BB00C2715F5E64C0028628D /* SelectPlayerState.h */,
 				516DF7AC15EFA4D7001F9898 /* EditState.cpp */,
 				516DF7AD15EFA4D7001F9898 /* EditState.h */,
@@ -1434,6 +1461,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				1B41315F15F6EAFE00BAE320 /* ofxTrueTypeFontUC */,
 				1B1F3ACB15F5F64C00EA6F0D /* ofxUI */,
 				1BC0074B15F59F5E005AD984 /* ofxTimer */,
 				1BC0074F15F59F5E005AD984 /* ofxTween */,
@@ -1904,6 +1932,7 @@
 				1BC007A115F59F5E005AD984 /* ofxEasingQuint.cpp in Sources */,
 				1BC007A215F59F5E005AD984 /* ofxEasingSine.cpp in Sources */,
 				1BC007A315F59F5E005AD984 /* ofxTween.cpp in Sources */,
+				1B41316515F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -122,6 +122,7 @@ public:
 		}
 
 	};
+	ofRectangle boundsA,boundsB;
 };
 
 

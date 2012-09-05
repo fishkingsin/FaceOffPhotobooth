@@ -3,16 +3,18 @@
 #include "SelectPlayerState.h"
 #include "PlayState.h"
 #include "EditState.h"
+#include "EndState.h"
 const static string settingFileName = "config.xml";
 //--------------------------------------------------------------
 void testApp::setup(){
 	ofEnableAlphaBlending();
+	stateMachine.getSharedData().load();
     ofxXmlSettings xml  = stateMachine.getSharedData().xml;
     if(xml.loadFile(settingFileName))
 	{
 		if(xml.pushTag("DATA"))
 		{
-			stateMachine.getSharedData().counter = xml.getValue("COUNTER", 0);
+
 			stateMachine.getSharedData().path_to_save = xml.getValue("CAPTURE_PATH", "./captures");
 			stateMachine.getSharedData().numDigi = xml.getValue("DIGI", 5);
 			ofDirectory dir;
@@ -66,6 +68,7 @@ void testApp::setup(){
 	stateMachine.addState(new SelectPlayerState());
 	stateMachine.addState(new PlayState());
 	stateMachine.addState(new EditState());
+	stateMachine.addState(new EndState());	
 	stateMachine.changeState("IndexState");
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
@@ -90,13 +93,7 @@ void testApp::draw(){
 }
 void testApp::exit()
 {
-	//    if (stateMachine.getSharedData().xml.pushTag("DATA")) {
-	//        stateMachine.getSharedData().xml.setValue("COUNTER", stateMachine.getSharedData().counter);
-	//        stateMachine.getSharedData().xml.popTag();
-	//        
-	//        
-	//    }
-	//    stateMachine.getSharedData().xml.saveFile();
+	stateMachine.getSharedData().save();
 }
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
@@ -113,6 +110,9 @@ void testApp::keyPressed(int key){
             break;
         case OF_KEY_F4:
             stateMachine.changeState("SelectPlayerState");
+            break;
+		case OF_KEY_F5:
+            stateMachine.changeState("EndState");
             break;
 		case 's':
             stateMachine.getSharedData().panel.saveSettings();
