@@ -1,5 +1,5 @@
 /*
- *  PlayState.h
+ *  SelectPlayerState.h
  *
  *  Copyright (c) 2012, James Kong, http://www.fishkingsin.com
  *  All rights reserved. 
@@ -34,6 +34,7 @@
 
 #include "ofxState.h"
 #include "SharedData.h"
+#include "ofxUI.h"
 
 class SelectPlayerState : public Apex::ofxState<SharedData>
 {
@@ -66,7 +67,7 @@ public:
 			if(btn->getValue()==1)
 			{
 				getSharedData().numPlayer = 1;
-				changeState("PlayState");
+				changeState("CaptureState");
 				
 			}
 		}
@@ -77,7 +78,7 @@ public:
 			if(btn->getValue()==1)
 			{
 				getSharedData().numPlayer = 2;
-				changeState("PlayState");
+				changeState("CaptureState");
 				
 			}
 		}

@@ -1,5 +1,5 @@
 /*
- *  PlayState.h
+ *  IndexState.h
  *
  *  Copyright (c) 2012, James Kong, http://www.fishkingsin.com
  *  All rights reserved. 

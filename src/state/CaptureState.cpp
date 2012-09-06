@@ -1,5 +1,5 @@
 /*
- *  PlayState.cpp
+ *  CaptureState.cpp
  *
  *  Copyright (c) 2012, James Kong, http://www.fishkingsin.com
  *  All rights reserved. 
@@ -30,20 +30,20 @@
  *
  */
 
-#include "PlayState.h"
+#include "CaptureState.h"
 FaceFeature *feature[4];
-string PlayState::getName()
+string CaptureState::getName()
 {
-	return "PlayState";
+	return "CaptureState";
 }
 //--------------------------------------------------------------
-void PlayState::setup(){
+void CaptureState::setup(){
     
 	//    ofSetLogLevel(OF_LOG_VERBOSE);
 	
     
     // enable depth->video image calibration
-	image.loadImage("images/playstate.png");
+	image.loadImage("images/CaptureState.png");
     faceTracking.setup();
     getSharedData().panel.setWhichPanel("FaceTracking");
     getSharedData().panel.setWhichColumn(0);
@@ -90,13 +90,13 @@ void PlayState::setup(){
     bCapture = false;
     bBox2D = false;
     countDown.setup(getSharedData().xml.getValue("COUNTDOWN",1)*1000);
-    ofAddListener(countDown.COUNTER_REACHED,this,&PlayState::Shot);
-    ofAddListener(countDown.COMPLETE,this,&PlayState::completeShot);
+    ofAddListener(countDown.COUNTER_REACHED,this,&CaptureState::Shot);
+    ofAddListener(countDown.COMPLETE,this,&CaptureState::completeShot);
 	
 }
 
 //--------------------------------------------------------------
-void PlayState::update(){
+void CaptureState::update(){
     if(!bBox2D)
     {
         faceTracking.minFaceAreaW = getSharedData().panel.getValueF("minFaceAreaW");
@@ -208,7 +208,7 @@ void PlayState::update(){
 
 
 //--------------------------------------------------------------
-void PlayState::draw(){
+void CaptureState::draw(){
     capturedScreen.begin();
 	ofClearAlpha();
     if(!bBox2D)
@@ -218,26 +218,68 @@ void PlayState::draw(){
     if(lastCapture.isAllocated())lastCapture.draw(0,0);
     if(bBox2D)
     {
-		
-        
         faceTracking.drawFeaturesBlur(0);
         faceTracking.drawFeaturesBlur(1);
         box2d.draw();
     }
     
 	capturedScreen.end();
-	capturedScreen.draw(0.5*(ofGetWidth()-screenWidth),0,screenWidth,screenHeight);
-	image.draw(0,0);
+    if(bBox2D)
+    {
+//        switch(getSharedData().numPlayer)
+//        {
+//            case 1:
+//                break;
+//                652,72
+//                capturedScreen.bind();
+//                glBegin(GL_QUADS);
+//                glTexCoord2f(0, 0);
+//                glVertex2f(652, 72);
+//                glTexCoord2f(camW*0.5, 0);
+//                glVertex2f(652+screenWidth*0.5, 72);
+//                glTexCoord2f(camW*0.5, camH);
+//                glVertex2f(652+screenWidth*0.5, 72+screenHeight);
+//                glTexCoord2f(0, camH+screenHeight);
+//                glVertex2f(652, 72);
+//                glEnd();
+//                capturedScreen.unbind();
+//                capturedScreen.getTextureReference().drawSubsection(652, 72, screenWidth*0.5,
+//                                                                    screenHeight,10,10);//, camW*0.5 , camH);
+//            case 2:
+//                break;
+//        }
+        // frame screen background
+        //screen one
+        //screen two
+        capturedScreen.draw(screenWidth+0.5*(ofGetWidth()-screenWidth),
+                            0,
+                            -screenWidth,
+                            screenHeight);
+    }
+    else
+    {
+        
+    
+	capturedScreen.draw(screenWidth+0.5*(ofGetWidth()-screenWidth),
+                        0,
+                        -screenWidth,
+                        screenHeight);
+    }
+    if(ofGetLogLevel()==OF_LOG_VERBOSE)
+    {
+
+    }
+	//image.draw(0,0);
 	countDown.draw(ofGetWidth()/2-100,0, 200,200);
 }
 
-void PlayState::stateExit() {
+void CaptureState::stateExit() {
     
 	faceTracking.exit();
     
 }
 //--------------------------------------------------------------
-void PlayState::keyPressed(int key){
+void CaptureState::keyPressed(int key){
     switch(key)
     {
         case 'c':
@@ -274,7 +316,7 @@ void PlayState::keyPressed(int key){
                             float y = rect.y+(feature[j]->rect.y*scaleY);
                             float w = feature[j]->rect.width*scaleX;
                             float h = feature[j]->rect.height*scaleY;
-                            p.setup(box2d.box2d[i].getWorld(),x+(w*0.5)*0.5,y+(h*0.5)*0.5,w*0.5*0.5);
+                            p.setup(box2d.box2d[i].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5);
                             p.setupTheCustomData(feature[j],&faceTracking.alphaMaskShader,scaleX,scaleY);
                             box2d.addParticle( p);
                         }
@@ -299,38 +341,38 @@ void PlayState::keyPressed(int key){
 }
 
 //--------------------------------------------------------------
-void PlayState::keyReleased(int key){
+void CaptureState::keyReleased(int key){
     
 }
 
 //--------------------------------------------------------------
-void PlayState::mouseMoved(int x, int y ){
+void CaptureState::mouseMoved(int x, int y ){
     
 }
 
 //--------------------------------------------------------------
-void PlayState::mouseDragged(int x, int y, int button){
+void CaptureState::mouseDragged(int x, int y, int button){
     
 }
 
 //--------------------------------------------------------------
-void PlayState::mousePressed(int x, int y, int button){
+void CaptureState::mousePressed(int x, int y, int button){
     
     
 }
 
 //--------------------------------------------------------------
-void PlayState::mouseReleased(int x, int y, int button){
+void CaptureState::mouseReleased(int x, int y, int button){
     
 }
 
-void PlayState::Shot(ofEventArgs &arg)
+void CaptureState::Shot(ofEventArgs &arg)
 {
     ofLog(OF_LOG_VERBOSE,"Shot");
     bCapture = true;
     
 }
-void PlayState::completeShot(ofEventArgs &arg)
+void CaptureState::completeShot(ofEventArgs &arg)
 {
     ofLog(OF_LOG_VERBOSE,"completeShot");
     bBox2D = true;

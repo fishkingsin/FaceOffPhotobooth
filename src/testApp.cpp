@@ -1,12 +1,14 @@
 #include "testApp.h"
 #include "IndexState.h"
 #include "SelectPlayerState.h"
-#include "PlayState.h"
 #include "EditState.h"
+#include "CaptureState.h"
 #include "EndState.h"
+#include "LicenseState.h"
 const static string settingFileName = "config.xml";
 //--------------------------------------------------------------
 void testApp::setup(){
+    ofEnableSmoothing();
 	ofEnableAlphaBlending();
 	stateMachine.getSharedData().load();
     ofxXmlSettings xml  = stateMachine.getSharedData().xml;
@@ -14,7 +16,10 @@ void testApp::setup(){
 	{
 		if(xml.pushTag("DATA"))
 		{
-
+            int width = xml.getValue("WIDTH", 1280);
+            int height = xml.getValue("HEIGHT", 720);
+            ofSetFullscreen(xml.getValue("FULLSCREEN", 0));
+            ofSetWindowShape(width, height);
 			stateMachine.getSharedData().path_to_save = xml.getValue("CAPTURE_PATH", "./captures");
 			stateMachine.getSharedData().numDigi = xml.getValue("DIGI", 5);
 			ofDirectory dir;
@@ -66,9 +71,10 @@ void testApp::setup(){
 	// initialise state machine
 	stateMachine.addState(new IndexState());
 	stateMachine.addState(new SelectPlayerState());
-	stateMachine.addState(new PlayState());
+	stateMachine.addState(new CaptureState());
 	stateMachine.addState(new EditState());
-	stateMachine.addState(new EndState());	
+	stateMachine.addState(new EndState());
+	stateMachine.addState(new LicenseState());
 	stateMachine.changeState("IndexState");
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
@@ -100,7 +106,7 @@ void testApp::keyPressed(int key){
     switch(key)
     {
         case OF_KEY_F1:
-            stateMachine.changeState("PlayState");
+            stateMachine.changeState("CaptureState");
             break;
         case OF_KEY_F2:
             stateMachine.changeState("EditState");
@@ -114,6 +120,9 @@ void testApp::keyPressed(int key){
 		case OF_KEY_F5:
             stateMachine.changeState("EndState");
             break;
+        case OF_KEY_F12:
+            stateMachine.changeState("LicenseState");
+            break;
 		case 's':
             stateMachine.getSharedData().panel.saveSettings();
             break;
@@ -122,7 +131,7 @@ void testApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
-    
+    ofLog(OF_LOG_VERBOSE,"keyReleased :" + ofToString(key));
 }
 
 //--------------------------------------------------------------

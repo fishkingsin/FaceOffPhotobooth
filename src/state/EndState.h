@@ -1,5 +1,5 @@
 /*
- *  PlayState.h
+ *  EndState.h
  *
  *  Copyright (c) 2012, James Kong, http://www.fishkingsin.com
  *  All rights reserved. 
@@ -43,7 +43,7 @@ public:
     void setup(){
 		
 		image.loadImage("images/end.png");
-		font.loadFont("fonts/LunacyMore.ttf",256);
+		font.loadFont("fonts/LunacyMore.ttf",128);
 		timer.setup(8000,false);
 		ofAddListener(timer.TIMER_REACHED,this,&EndState::timesUp);
 		timer.stopTimer();
@@ -53,7 +53,7 @@ public:
 	void draw(){
 		ofPushStyle();
 		ofEnableAlphaBlending();
-		ofSetColor(255);
+		ofSetColor(253,127,2);
 		image.draw(0,0);
 		font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
 		ofPopStyle();
@@ -77,7 +77,7 @@ public:
 			getSharedData().lastCode="XXXXXX";
 		}
 		timer.startTimer();
-		strPos.x = ofGetWidth()*0.5f-font.stringWidth(getSharedData().lastCode);
+		strPos.x = ofGetWidth()*0.5f-font.stringWidth(getSharedData().lastCode)*0.5f;
 		strPos.y = ofGetHeight()*0.5f;//-font.stringHeight(getSharedData().lastCode);
 	}
     void keyPressed(int key) {}

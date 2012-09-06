@@ -30,6 +30,10 @@
 		250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ce9c7160245b19131dae61282ee6cb53 /* ofxCvColorImage.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
 		510cafe035e576a4e1502d52c11243bb /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6def695b88ba5faaceaa93785a12fd9 /* UdpSocket.cpp */; };
+		51562DAD15F79873008E5D60 /* EndState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DA915F79873008E5D60 /* EndState.cpp */; };
+		51562DAE15F79873008E5D60 /* IndexState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAA15F79873008E5D60 /* IndexState.cpp */; };
+		51562DAF15F79873008E5D60 /* LicenseState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAB15F79873008E5D60 /* LicenseState.cpp */; };
+		51562DB015F79873008E5D60 /* SelectPlayerState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAC15F79873008E5D60 /* SelectPlayerState.cpp */; };
 		516DF71F15EFA4B6001F9898 /* ofxBlur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF58B15EFA4B2001F9898 /* ofxBlur.cpp */; };
 		516DF72015EFA4B6001F9898 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF59615EFA4B2001F9898 /* b2BroadPhase.cpp */; };
 		516DF72115EFA4B6001F9898 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF59815EFA4B2001F9898 /* b2CollideCircle.cpp */; };
@@ -104,7 +108,7 @@
 		516DF7B415EFA4D7001F9898 /* FaceMapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7A715EFA4D7001F9898 /* FaceMapper.cpp */; };
 		516DF7B515EFA4D7001F9898 /* FaceTracking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7A915EFA4D7001F9898 /* FaceTracking.cpp */; };
 		516DF7B615EFA4D7001F9898 /* EditState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7AC15EFA4D7001F9898 /* EditState.cpp */; };
-		516DF7B715EFA4D7001F9898 /* PlayState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7AE15EFA4D7001F9898 /* PlayState.cpp */; };
+		516DF7B715EFA4D7001F9898 /* CaptureState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7AE15EFA4D7001F9898 /* CaptureState.cpp */; };
 		516DF7B815EFA4D7001F9898 /* MyBox2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7B215EFA4D7001F9898 /* MyBox2D.cpp */; };
 		516DF80815EFA4F2001F9898 /* ofxGLWarper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 516DF7CD15EFA4F0001F9898 /* ofxGLWarper.cpp */; };
 		516DF81915EFA8E3001F9898 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 516DF81815EFA8E3001F9898 /* QTKit.framework */; };
@@ -299,6 +303,11 @@
 		49effcf36cf194cce0e1faabecebbc9b /* kdtree_index.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kdtree_index.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kdtree_index.h; sourceTree = SOURCE_ROOT; };
 		4e95fb446a9c9c6f0de12d752f6604b3 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscPrintReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
+		51562DA715F7858A008E5D60 /* LicenseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseState.h; sourceTree = "<group>"; };
+		51562DA915F79873008E5D60 /* EndState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndState.cpp; sourceTree = "<group>"; };
+		51562DAA15F79873008E5D60 /* IndexState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IndexState.cpp; sourceTree = "<group>"; };
+		51562DAB15F79873008E5D60 /* LicenseState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LicenseState.cpp; sourceTree = "<group>"; };
+		51562DAC15F79873008E5D60 /* SelectPlayerState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SelectPlayerState.cpp; sourceTree = "<group>"; };
 		516717f84c0146512c47a3ec3f268851 /* ofxCvHaarFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxCvHaarFinder.h; path = ../../../addons/ofxOpenCv/src/ofxCvHaarFinder.h; sourceTree = SOURCE_ROOT; };
 		516DF58B15EFA4B2001F9898 /* ofxBlur.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBlur.cpp; sourceTree = "<group>"; };
 		516DF58C15EFA4B2001F9898 /* ofxBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBlur.h; sourceTree = "<group>"; };
@@ -463,8 +472,8 @@
 		516DF7AA15EFA4D7001F9898 /* FaceTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaceTracking.h; sourceTree = "<group>"; };
 		516DF7AC15EFA4D7001F9898 /* EditState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditState.cpp; sourceTree = "<group>"; };
 		516DF7AD15EFA4D7001F9898 /* EditState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditState.h; sourceTree = "<group>"; };
-		516DF7AE15EFA4D7001F9898 /* PlayState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayState.cpp; sourceTree = "<group>"; };
-		516DF7AF15EFA4D7001F9898 /* PlayState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayState.h; sourceTree = "<group>"; };
+		516DF7AE15EFA4D7001F9898 /* CaptureState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CaptureState.cpp; sourceTree = "<group>"; };
+		516DF7AF15EFA4D7001F9898 /* CaptureState.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CaptureState.h; sourceTree = "<group>"; };
 		516DF7B015EFA4D7001F9898 /* SharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedData.h; sourceTree = "<group>"; };
 		516DF7B215EFA4D7001F9898 /* MyBox2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MyBox2D.cpp; sourceTree = "<group>"; };
 		516DF7B315EFA4D7001F9898 /* MyBox2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBox2D.h; sourceTree = "<group>"; };
@@ -1288,12 +1297,17 @@
 		516DF7AB15EFA4D7001F9898 /* state */ = {
 			isa = PBXGroup;
 			children = (
+				51562DA915F79873008E5D60 /* EndState.cpp */,
+				51562DAA15F79873008E5D60 /* IndexState.cpp */,
+				51562DAB15F79873008E5D60 /* LicenseState.cpp */,
+				51562DAC15F79873008E5D60 /* SelectPlayerState.cpp */,
+				51562DA715F7858A008E5D60 /* LicenseState.h */,
 				1B41315E15F6EA6700BAE320 /* EndState.h */,
 				1BB00C2715F5E64C0028628D /* SelectPlayerState.h */,
 				516DF7AC15EFA4D7001F9898 /* EditState.cpp */,
 				516DF7AD15EFA4D7001F9898 /* EditState.h */,
-				516DF7AE15EFA4D7001F9898 /* PlayState.cpp */,
-				516DF7AF15EFA4D7001F9898 /* PlayState.h */,
+				516DF7AE15EFA4D7001F9898 /* CaptureState.cpp */,
+				516DF7AF15EFA4D7001F9898 /* CaptureState.h */,
 				516DF7B015EFA4D7001F9898 /* SharedData.h */,
 				1BB00C2615F5E5C00028628D /* IndexState.h */,
 			);
@@ -1914,7 +1928,7 @@
 				516DF7B415EFA4D7001F9898 /* FaceMapper.cpp in Sources */,
 				516DF7B515EFA4D7001F9898 /* FaceTracking.cpp in Sources */,
 				516DF7B615EFA4D7001F9898 /* EditState.cpp in Sources */,
-				516DF7B715EFA4D7001F9898 /* PlayState.cpp in Sources */,
+				516DF7B715EFA4D7001F9898 /* CaptureState.cpp in Sources */,
 				516DF7B815EFA4D7001F9898 /* MyBox2D.cpp in Sources */,
 				516DF80815EFA4F2001F9898 /* ofxGLWarper.cpp in Sources */,
 				1BC0074A15F59931005AD984 /* CountDown.cpp in Sources */,
@@ -1933,6 +1947,10 @@
 				1BC007A215F59F5E005AD984 /* ofxEasingSine.cpp in Sources */,
 				1BC007A315F59F5E005AD984 /* ofxTween.cpp in Sources */,
 				1B41316515F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp in Sources */,
+				51562DAD15F79873008E5D60 /* EndState.cpp in Sources */,
+				51562DAE15F79873008E5D60 /* IndexState.cpp in Sources */,
+				51562DAF15F79873008E5D60 /* LicenseState.cpp in Sources */,
+				51562DB015F79873008E5D60 /* SelectPlayerState.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 /*
- *  PlayState.h
+ *  CaptureState.h
  *
  *  Copyright (c) 2012, James Kong, http://www.fishkingsin.com
  *  All rights reserved. 
@@ -35,7 +35,7 @@
 #include "ofxState.h"
 #include "SharedData.h"
 #include "CountDown.h"
-class PlayState : public Apex::ofxState<SharedData>
+class CaptureState : public Apex::ofxState<SharedData>
 {
 public:
     void setup();
