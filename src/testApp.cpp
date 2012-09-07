@@ -10,6 +10,9 @@ const static string settingFileName = "config.xml";
 void testApp::setup(){
     ofEnableSmoothing();
 	ofEnableAlphaBlending();
+    ofSetVerticalSync(true);
+    glDisable(GL_DEPTH_TEST);
+    stateMachine.getSharedData().counter = 0;
 	stateMachine.getSharedData().load();
     ofxXmlSettings xml  = stateMachine.getSharedData().xml;
     if(xml.loadFile(settingFileName))
@@ -22,6 +25,7 @@ void testApp::setup(){
             ofSetWindowShape(width, height);
 			stateMachine.getSharedData().path_to_save = xml.getValue("CAPTURE_PATH", "./captures");
 			stateMachine.getSharedData().numDigi = xml.getValue("DIGI", 5);
+            stateMachine.getSharedData().font.loadFont(xml.getValue("FONT_PATH", "fonts/LunacyMore.ttf"),xml.getValue("FONT_SIZE", 128));
 			ofDirectory dir;
 			if(dir.listDir(stateMachine.getSharedData().path_to_save)<1)
 			{

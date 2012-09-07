@@ -485,6 +485,7 @@
 		516DF7E415EFA4F0001F9898 /* ofxStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxStateMachine.h; sourceTree = "<group>"; };
 		516DF81815EFA8E3001F9898 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = ../../../../../../../System/Library/Frameworks/QTKit.framework; sourceTree = "<group>"; };
 		516DF81A15EFA8FE001F9898 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = ../../../../../../../System/Library/Frameworks/CoreVideo.framework; sourceTree = "<group>"; };
+		51D11DB515FA2F520066B8B7 /* config.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = config.xml; path = bin/data/config.xml; sourceTree = "<group>"; };
 		51F6E8CB15F2668B007D3EBA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		51F6E8CF15F2668B007D3EBA /* ofxPSBlend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPSBlend.h; sourceTree = "<group>"; };
 		586a8ec141bdfa82b3b0518c5749a6b0 /* config.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = config.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/config.h; sourceTree = SOURCE_ROOT; };
@@ -1306,12 +1307,12 @@
 				51562DA715F7858A008E5D60 /* LicenseState.h */,
 				1B41315E15F6EA6700BAE320 /* EndState.h */,
 				1BB00C2715F5E64C0028628D /* SelectPlayerState.h */,
+				1BB00C2615F5E5C00028628D /* IndexState.h */,
 				516DF7AC15EFA4D7001F9898 /* EditState.cpp */,
 				516DF7AD15EFA4D7001F9898 /* EditState.h */,
 				516DF7AE15EFA4D7001F9898 /* CaptureState.cpp */,
 				516DF7AF15EFA4D7001F9898 /* CaptureState.h */,
 				516DF7B015EFA4D7001F9898 /* SharedData.h */,
-				1BB00C2615F5E5C00028628D /* IndexState.h */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -1546,6 +1547,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				51D11DB515FA2F520066B8B7 /* config.xml */,
 				1B26082315F9A1EE002836EA /* PSBlendShader.frag */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,

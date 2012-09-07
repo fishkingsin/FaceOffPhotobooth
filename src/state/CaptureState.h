@@ -34,7 +34,17 @@
 
 #include "ofxState.h"
 #include "SharedData.h"
+#include "ofxTimer.h"
 #include "CountDown.h"
+#define SINGLE_X 0.395f
+#define SINGLE_Y 0.165f
+#define SINGLE_W 0.242f
+#define SINGLE_H 0.699f
+
+#define DOU1_X 0.153f
+
+#define DOU2_X 0.639583f
+
 class CaptureState : public Apex::ofxState<SharedData>
 {
 public:
@@ -46,13 +56,15 @@ public:
     void mousePressed(int x, int y, int button) ;
     void mouseReleased(int x, int y, int button) ;
     void stateExit();
+    void stateEnter();
     void keyPressed(int key) ;
     void keyReleased(int key) ;
     void Shot(ofEventArgs &arg);
     void completeShot(ofEventArgs &arg);
+    void saveFace();
 	string getName();
     MyBox2D box2d;
-    FaceTracking faceTracking;
+
     bool bBox2D;
     bool bCapture;
     CountDown countDown;
@@ -62,5 +74,6 @@ public:
 	float ratio;
 	float screenWidth;
 		float screenHeight;
-	ofImage image;
+	ofImage image,image2,overlayimage,overlayimage2;
+    int timeCount;
 };

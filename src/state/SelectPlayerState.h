@@ -42,7 +42,8 @@ public:
 public:
     void setup(){
 		
-		image.loadImage("images/index.png");
+		
+        
 		//float dim = 16; 
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
@@ -83,12 +84,17 @@ public:
 			}
 		}
 	}
-	void update(){}
+	void update(){
+        if(ofGetElapsedTimef()-timeCount>30)
+        {
+            changeState("IndexState");
+        }
+    }
 	void draw(){
 		ofPushStyle();
 		ofEnableAlphaBlending();
 		ofSetColor(255);
-		image.draw(0,0);
+		image.draw(0,0,ofGetWidth(),ofGetHeight());
 
 		ofPopStyle();
 		gui->draw();
@@ -99,14 +105,28 @@ public:
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
 		gui->setVisible(false);
+        image.clear();
 	}
 	void stateEnter()
 	{
+        timeCount = ofGetElapsedTimef();
+        image.loadImage("images/selectplayer.jpg");
 				button1->drawFillHighlight();
 				button2->drawFillHighlight();
 		gui->setVisible(true);
 	}
-    void keyPressed(int key) {}
+    void keyPressed(int key) {
+        if(key=='1')
+        {
+            getSharedData().numPlayer = 1;
+            changeState("CaptureState");
+        }
+        else if (key =='2')
+        {
+            getSharedData().numPlayer = 2;
+            changeState("CaptureState");
+        }
+    }
     void keyReleased(int key) {}
     
 	ofImage image ;
@@ -115,5 +135,5 @@ public:
 
 	ofxUIButton  *button1;
 	ofxUIButton  *button2;
-    
+    int timeCount;
 };

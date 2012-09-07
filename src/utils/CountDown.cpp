@@ -51,7 +51,7 @@ void CountDown::update(ofEventArgs &args)
         static ofEventArgs timerEventArgs;
         ofNotifyEvent(COUNTER_REACHED, timerEventArgs, this);
         ofLog(OF_LOG_NOTICE,string(typeid(*this).name())+" "+string(__FUNCTION__)+" Counter Reached");
-        tween.setParameters(1,linearEase,ofxTween::easeOut,1,0,1000,500);
+        tween.setParameters(1,linearEase,ofxTween::easeOut,1,0,2000,500);
         fireComplete = false;
         shutter.play();
         stop();

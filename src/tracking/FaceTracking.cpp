@@ -171,8 +171,16 @@ void FaceTracking::update(bool bTrack)
             processTracking(0,0,camW,camH,vidGrabber.getTextureReference());
 #endif
         }
+
         
     }
+}
+void FaceTracking::detectFace()
+{
+    colorImg.setFromPixels(vidGrabber.getPixels(), camW,camH);
+    grayImage = colorImg;
+    facefinder.findHaarObjects(grayImage,minFaceAreaW,minFaceAreaH);
+    
 }
 void FaceTracking::savingFace(int nface , string fn)
 {

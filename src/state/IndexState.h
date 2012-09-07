@@ -34,66 +34,47 @@
 
 #include "ofxState.h"
 #include "SharedData.h"
-#include "ofxUI.h"
+
 class IndexState : public Apex::ofxState<SharedData>
 {
 public:
     void setup(){
 		
-		image.loadImage("images/index.png");
-		//float dim = 16; 
-		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
-		//float length = 255-xInit; 
-		gui = new ofxUICanvas(ofGetWidth()/2-142, ofGetHeight()/2-61, 284,122);
-
-		button = new ofxUIImageButton(284,122, true, "GUI/images/start.png","IMAGEBTN");
-		gui->addWidgetDown(button);
-		//button->setVidible(true);
-		ofAddListener(gui->newGUIEvent,this,&IndexState::guiEvent);
-		gui->setDrawBack(false);
-		gui->setVisible(false);
+		image.loadImage("images/index.jpg");
 	}
-	void guiEvent(ofxUIEventArgs &e)
-	{
-		string name = e.widget->getName(); 
-		int kind = e.widget->getKind(); 
-		if(name == "IMAGEBTN")
-		{
-			ofxUIImageButton *btn = (ofxUIImageButton *) e.widget; 
-			//cout << "IMAGEBTN " << btn->getValue() << endl; 
-			if(btn->getValue()==1)
-			{
-				changeState("SelectPlayerState");
-				
-			}
-		}
-	}
-	void update(){}
+	void update(){
+        getSharedData().faceTracking.update();
+        getSharedData().faceTracking.detectFace();
+        if(getSharedData().faceTracking.facefinder.blobs.size())
+        {
+            changeState("SelectPlayerState");
+        }
+    }
 	void draw(){
+
 		ofPushStyle();
 		ofEnableAlphaBlending();
 		ofSetColor(255);
-		image.draw(0,0);
-		button->drawFillHighlight();
+		image.draw(0,0,ofGetWidth(),ofGetHeight());
 		ofPopStyle();
-		gui->draw();
 	}
 	void mouseMoved(int x, int y) {}
     void mouseDragged(int x, int y, int button) {}
     void mousePressed(int x, int y, int button) {}
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
-		gui->setVisible(false);
 	}
 	void stateEnter()
 	{
-		gui->setVisible(true);
 	}
-    void keyPressed(int key) {}
+    void keyPressed(int key) {
+        if(key==OF_KEY_RETURN)
+        {
+            changeState("SelectPlayerState");
+        }
+    }
     void keyReleased(int key) {}
     
 	ofImage image ;
-	ofxUICanvas *gui; 
-    ofxUIImageButton *button ;
 	string getName(){ return "IndexState";}
 };

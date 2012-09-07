@@ -36,14 +36,11 @@
 #include "SharedData.h"
 #include "ofxUI.h"
 #include "ofxTimer.h"
-#include "ofxTrueTypeFontUC.h"
 class EndState : public Apex::ofxState<SharedData>
 {
 public:
     void setup(){
 		
-		image.loadImage("images/end.png");
-		font.loadFont("fonts/LunacyMore.ttf",128);
 		timer.setup(8000,false);
 		ofAddListener(timer.TIMER_REACHED,this,&EndState::timesUp);
 		timer.stopTimer();
@@ -53,9 +50,16 @@ public:
 	void draw(){
 		ofPushStyle();
 		ofEnableAlphaBlending();
-		ofSetColor(253,127,2);
-		image.draw(0,0);
-		font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
+        ofSetColor(255);
+		image.draw(0,0,ofGetWidth(),ofGetHeight());
+        ofPushStyle();
+        ofSetColor(253,127,2);
+        glPushMatrix();
+        glScalef(0.5,0.5,1);
+        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0),ofGetWidth() - 64,128);
+        glPopMatrix();
+		getSharedData().font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
+        ofPopStyle();
 		ofPopStyle();
 		
 		
@@ -68,16 +72,19 @@ public:
     void stateExit(){
 		timer.reset();
 		timer.stopTimer();
-		
+		image.clear();
+        timeCount = 0;
 	}
 	void stateEnter()
 	{
+        timeCount = ofGetElapsedTimef();
+        image.loadImage("images/end.jpg");
 		if(getSharedData().lastCode=="")
 		{
 			getSharedData().lastCode="XXXXXX";
 		}
 		timer.startTimer();
-		strPos.x = ofGetWidth()*0.5f-font.stringWidth(getSharedData().lastCode)*0.5f;
+		strPos.x = ofGetWidth()*0.5f-getSharedData().font.stringWidth(getSharedData().lastCode)*0.5f;
 		strPos.y = ofGetHeight()*0.5f;//-font.stringHeight(getSharedData().lastCode);
 	}
     void keyPressed(int key) {}
@@ -92,7 +99,9 @@ public:
     ofxUIImageButton *button ;
 	ofxTimer timer;
 
-	ofxTrueTypeFontUC font;
+	
 	ofPoint strPos;
 	string getName(){ return "EndState";}
+    int timeCount;
+    
 };

@@ -245,6 +245,7 @@ class FaceTracking
 public:
     void setup();
     void update(bool bTrack = false);
+    void detectFace();
     void draw();
     void exit();
     void processTracking(int x, int y , int w, int h , ofTexture& tex);
