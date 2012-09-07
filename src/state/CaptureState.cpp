@@ -166,6 +166,7 @@ void CaptureState::update(){
         getSharedData().save();	
         if(getSharedData().numPlayer==1)
         {
+			ofLog(OF_LOG_VERBOSE,"Start Saving one face\n-----------------------------------------");
             string file_name = getSharedData().lastFileNames.back();
             FaceData faceData;
             faceData.setup(file_name,"face_profile/settings_a.xml");
@@ -180,9 +181,11 @@ void CaptureState::update(){
             faceData.save();
             //TO_DO load image and map the face on shoes;
             getSharedData().lastFileNames.pop_back();
+			ofLog(OF_LOG_VERBOSE,"End Saving one face\n-----------------------------------------");
         }
 		else
 		{
+			ofLog(OF_LOG_VERBOSE,"Start Saving two face\n-----------------------------------------");
 			string file_name2 = getSharedData().lastFileNames.back();
 			getSharedData().lastFileNames.pop_back();
 			string file_name = getSharedData().lastFileNames.back();
@@ -198,6 +201,7 @@ void CaptureState::update(){
             faceData.save();
             faceData.setup(file_name, file_name2, "face_profile/settings_e.xml");
             faceData.save();
+			ofLog(OF_LOG_VERBOSE,"End Saving two face\n-----------------------------------------");
             //TO_DO load image and map the face on shoes;
             //getSharedData().lastFileNames.pop_back();
 		}

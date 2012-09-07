@@ -49,9 +49,10 @@ public:
     string prefix;
     ofxGLWarper warpper;
 	ofxPSBlend psBlend;
+	bool isSetup;
     FaceData()
     {
-        
+        isSetup = false;
     }
 	~FaceData()
     {
@@ -65,8 +66,12 @@ public:
         backgroundImage.clear();
         overlayImage.clear();
         faceImage.clear();
-		psBlend.setup(overlayImage.getWidth(), overlayImage.getHeight());
-        imageFile = img_fn;
+		if(!isSetup)
+		{
+			psBlend.setup(overlayImage.getWidth(), overlayImage.getHeight());
+			isSetup = true;
+        }
+		imageFile = img_fn;
         ofxXmlSettings xml;
         
         if(!xml.loadFile(setting_fn))
@@ -104,8 +109,9 @@ public:
     {
 		ofSetColor(255);
         ofEnableAlphaBlending();
-		backgroundImage.draw(0,0);
+		//backgroundImage.draw(0,0);
 		psBlend.begin();
+		backgroundImage.draw(0,0);
 		ofPushStyle();
 		ofPushMatrix();
         warpper.begin();
@@ -118,6 +124,7 @@ public:
 		psBlend.end();
 		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
         warpper.draw();
+		overlayImage.draw(0,0);
     }
     virtual void save()
     {

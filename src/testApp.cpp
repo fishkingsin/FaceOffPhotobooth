@@ -78,7 +78,7 @@ void testApp::setup(){
 	stateMachine.changeState(xml.getValue("DATA:INIT_STATE", "IndexState"));
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
-    stateMachine.getSharedData().numPlayer = 2;
+    stateMachine.getSharedData().numPlayer = 1;
     
 }
 

@@ -201,6 +201,7 @@ public:
             glScalef(scale,scale,1);
             {
                 alpha.begin();
+				ofClearAlpha();
                 alpha.setUniformTexture("maskTex", mask, 1 );
                 
                 
@@ -213,6 +214,7 @@ public:
         else
         {
             alpha.begin();
+			ofClearAlpha();
             alpha.setUniformTexture("maskTex", mask, 1 );
             
             glPushMatrix();

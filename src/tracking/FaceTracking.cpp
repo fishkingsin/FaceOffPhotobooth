@@ -204,6 +204,7 @@ void FaceTracking::draw()
     }
     if(ofGetLogLevel()==OF_LOG_VERBOSE)
     {
+		
         ofPushMatrix();
         ofPushStyle();
         ofNoFill();
@@ -217,7 +218,7 @@ void FaceTracking::draw()
         ofPopMatrix();
 		
         ofPushMatrix();
-        ofTranslate(camW,0);
+        //ofTranslate(camW,0);
         {
             faceBuffer[0].draw(0,0);
             faceBuffer[1].draw(0,faceBuffer[0].getHeight());
