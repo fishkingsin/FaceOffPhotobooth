@@ -35,7 +35,9 @@
 #include "ofMain.h"
 #include "ofxXmlSettings.h"
 #include "ofxGLWarper.h"
+#include "ofxPSBlend.h"
 #define gridRes 8
+#define MULTIPY 1
 class FaceData
 {
 public:
@@ -46,6 +48,7 @@ public:
     string imageFile;
     string prefix;
     ofxGLWarper warpper;
+	ofxPSBlend psBlend;
     FaceData()
     {
         
@@ -62,6 +65,7 @@ public:
         backgroundImage.clear();
         overlayImage.clear();
         faceImage.clear();
+		psBlend.setup(overlayImage.getWidth(), overlayImage.getHeight());
         imageFile = img_fn;
         ofxXmlSettings xml;
         
@@ -97,13 +101,17 @@ public:
     }
     void draw()
     {
+		ofSetColor(255);
         ofEnableAlphaBlending();
-        backgroundImage.draw(0,0);
-        warpper.begin();
+		backgroundImage.draw(0,0);
+		warpper.begin();
         faceImage.draw(0,0);
         warpper.end();
+		
+		psBlend.begin();
         warpper.draw();
-        
+		psBlend.end();
+		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
         overlayImage.draw(0,0);
         
     }
@@ -148,21 +156,33 @@ public:
     void draw()
     {
         ofEnableAlphaBlending();
+		ofSetColor(255);
         backgroundImage.draw(0,0);
-        
-        ofPushMatrix();
+		ofPushStyle();
+		ofPushMatrix();
         warpper.begin();
         faceImage.draw(0,0);
         warpper.end();
-        warpper.draw();
-        ofPopMatrix();
-        
-        ofPushMatrix();
+		warpper.draw();
+		ofPopMatrix();
+		ofPopStyle();
+
+		ofPushStyle();
+		ofPushMatrix();
+
         warpper2.begin();
         faceImage2.draw(0,0);
         warpper2.end();
-        warpper2.draw();
+		warpper2.draw();
         ofPopMatrix();
+		ofPopStyle();
+		
+//		psBlend.begin();
+        
+
+//		psBlend.end();
+//		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+
         
         overlayImage.draw(0,0);
         
@@ -170,7 +190,7 @@ public:
     void saveSetting()
     {
         FaceData::saveSetting();
-        warpper.save("warpper2_"+prefix+".xml");
+        warpper2.save("warpper2_"+prefix+".xml");
     }
 };
 class FaceMapper
