@@ -1,23 +1,5 @@
 <DATA>
     <PREFIX>a</PREFIX>
-    <BACKGROUND>face_profile/background.png</BACKGROUND>
-    <OVERLAY>face_profile/overlay.png</OVERLAY>
-    <POINTS>
-        <POINT>
-            <X>100</X>
-            <Y>100</Y>
-        </POINT>
-        <POINT>
-            <X>500</X>
-            <Y>200</Y>
-        </POINT>
-        <POINT>
-            <X>600</X>
-            <Y>400</Y>
-        </POINT>
-        <POINT>
-            <X>50</X>
-            <Y>350</Y>
-        </POINT>
-    </POINTS>
+    <BACKGROUND>face_profile/backgrounda.png</BACKGROUND>
+    <OVERLAY>face_profile/overlaya.png</OVERLAY>
 </DATA>

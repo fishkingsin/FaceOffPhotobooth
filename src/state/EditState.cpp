@@ -90,6 +90,9 @@ void EditState::keyPressed(int key){
         case 's':
             faceData.saveSetting();
             break;
+		case 'S':
+            faceData.save();
+            break;
     }
 }
 

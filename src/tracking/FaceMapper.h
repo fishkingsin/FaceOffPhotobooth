@@ -61,7 +61,7 @@ public:
     }
     void setup(string img_fn, string setting_fn)
     {
-
+		ofEnableAlphaBlending();
         backgroundImage.clear();
         overlayImage.clear();
         faceImage.clear();
@@ -88,10 +88,11 @@ public:
             if(xml.pushTag("DATA"))
             {
                 prefix = xml.getValue("PREFIX","a");
+
                 backgroundImage.loadImage(xml.getValue("BACKGROUND","background.png"));
                 overlayImage.loadImage(xml.getValue("OVERLAY","overlay.png"));
                 warpper.setup(0,0,faceImage.width,faceImage.height);
-                warpper.load("warpper_"+prefix+".xml");
+                warpper.load("face_profile/warpper_"+prefix+".xml");
 
                 xml.popTag();
             }
@@ -99,40 +100,44 @@ public:
         }
 
     }
-    void draw()
+    virtual void draw()
     {
 		ofSetColor(255);
         ofEnableAlphaBlending();
 		backgroundImage.draw(0,0);
-		warpper.begin();
+		psBlend.begin();
+		ofPushStyle();
+		ofPushMatrix();
+        warpper.begin();
         faceImage.draw(0,0);
         warpper.end();
 		
-		psBlend.begin();
-        warpper.draw();
+		ofPopMatrix();
+		ofPopStyle();
+
 		psBlend.end();
 		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
-        overlayImage.draw(0,0);
-        
+        warpper.draw();
     }
-    void save()
+    virtual void save()
     {
         ofFbo fbo;
-        fbo.allocate(overlayImage.width,overlayImage.height,GL_RGB);
+        fbo.allocate(overlayImage.width,overlayImage.height);
         fbo.begin();
-        ofClear(0);
-        this->draw();
+        ofClearAlpha();
+        draw();
         fbo.end();
-        ofPixels pixels;
-        pixels.allocate(overlayImage.width,overlayImage.height,OF_IMAGE_COLOR);
+        ofPixels pixels;		
+        pixels.allocate(overlayImage.width,overlayImage.height,OF_IMAGE_COLOR_ALPHA);
         fbo.readToPixels(pixels);
         string subImageName = imageFile.substr(0,imageFile.length()-4);
-        ofSaveImage(pixels, subImageName+prefix+".jpg");
+        ofSaveImage(pixels, subImageName+prefix+".png",OF_IMAGE_QUALITY_BEST);
+		
         
     }
     void saveSetting()
     {
-        warpper.save("warpper_"+prefix+".xml");
+        warpper.save("face_profile/warpper_"+prefix+".xml");
     }
 };
 class DoubleFaceData : public FaceData
@@ -146,51 +151,56 @@ public:
     }
     void setup(string img_fn,string img_fn2, string setting_fn)
     {
+		ofEnableAlphaBlending();
         faceImage2.clear();
         FaceData::setup(img_fn, setting_fn);
         faceImage2.loadImage(img_fn2);
         warpper2.setup(0,0,faceImage2.width,faceImage2.height);
-        warpper2.load("warpper2_"+prefix+".xml");
+        warpper2.load("face_profile/warpper2_"+prefix+".xml");
         
     }
     void draw()
     {
         ofEnableAlphaBlending();
 		ofSetColor(255);
+		
         backgroundImage.draw(0,0);
+		
+		psBlend.begin();
 		ofPushStyle();
 		ofPushMatrix();
-        warpper.begin();
-        faceImage.draw(0,0);
-        warpper.end();
-		warpper.draw();
+		{
+			warpper.begin();
+			faceImage.draw(0,0);
+			warpper.end();
+		}
 		ofPopMatrix();
 		ofPopStyle();
 
 		ofPushStyle();
 		ofPushMatrix();
-
-        warpper2.begin();
-        faceImage2.draw(0,0);
-        warpper2.end();
-		warpper2.draw();
+		{
+			warpper2.begin();
+			faceImage2.draw(0,0);
+			warpper2.end();
+			
+		}
         ofPopMatrix();
 		ofPopStyle();
-		
-//		psBlend.begin();
         
 
-//		psBlend.end();
-//		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
-
+		psBlend.end();
+		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+		warpper.draw();
+		warpper2.draw();
         
-        overlayImage.draw(0,0);
+		overlayImage.draw(0,0);
         
     }
     void saveSetting()
     {
         FaceData::saveSetting();
-        warpper2.save("warpper2_"+prefix+".xml");
+        warpper2.save("face_profile/warpper2_"+prefix+".xml");
     }
 };
 class FaceMapper

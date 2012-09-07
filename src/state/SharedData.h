@@ -46,6 +46,7 @@ public:
     ofxXmlSettings xml;
 	ofImage loadedImage;
     ofxAutoControlPanel panel;
+	
 	void load()
 	{
 		counter = 0;

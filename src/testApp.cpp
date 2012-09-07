@@ -75,7 +75,7 @@ void testApp::setup(){
 	stateMachine.addState(new EditState());
 	stateMachine.addState(new EndState());
 	stateMachine.addState(new LicenseState());
-	stateMachine.changeState("IndexState");
+	stateMachine.changeState(xml.getValue("DATA:INIT_STATE", "IndexState"));
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
     stateMachine.getSharedData().numPlayer = 2;
