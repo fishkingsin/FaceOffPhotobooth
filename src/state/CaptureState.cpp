@@ -48,11 +48,12 @@ void CaptureState::setup(){
     getSharedData().panel.addSlider("faceOffsetY",getSharedData().faceTracking.faceOffset.y,1,512);
     getSharedData().panel.addSlider("faceOffsetW",getSharedData().faceTracking.faceOffset.width,1,512);
     getSharedData().panel.addSlider("faceOffsetH",getSharedData().faceTracking.faceOffset.height,1,512);
-	ratio = (ofGetHeight()*1.0f)/(camH*1.0f);
+	
 	
 	capturedScreen.allocate(camW,camH);
+    
+    ratio = (ofGetHeight()*1.0f)/(camH*1.0f);
 	screenWidth = camW*ratio;
-	
 	screenHeight = ofGetHeight();
 	
     for(int j = 0 ;j < MAX_PLAYER ; j++)
@@ -268,6 +269,10 @@ void CaptureState::stateExit() {
 }
 void CaptureState::stateEnter()
 {
+    ratio = (ofGetHeight()*1.0f)/(camH*1.0f);
+	screenWidth = camW*ratio;
+	screenHeight = ofGetHeight();
+
     timeCount = ofGetElapsedTimef();
     keyPressed(OF_KEY_BACKSPACE);
     image.loadImage("images/CaptureState.png");
