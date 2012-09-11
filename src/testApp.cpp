@@ -83,11 +83,15 @@ void testApp::setup(){
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
     stateMachine.getSharedData().numPlayer = 1;
+    int num = 5000;
+	stateMachine.getSharedData().p.assign(num, Particle());
+    resetParticles();
     
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
+    
 	appFrameRate	= ofGetFrameRate();
     int loglevel = stateMachine.getSharedData().panel.getValueI("LogLevel");
     if(ofGetLogLevel()!=  loglevel  )
@@ -171,4 +175,11 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
     
+}
+void testApp::resetParticles(){
+    for(int i = 0; i < stateMachine.getSharedData().p.size(); i++){
+		stateMachine.getSharedData().p[i].setMode(PARTICLE_MODE_ATTRACT);		
+    
+		stateMachine.getSharedData().p[i].reset();
+	}	
 }

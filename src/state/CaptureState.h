@@ -55,6 +55,7 @@ public:
     void mouseDragged(int x, int y, int button) ;
     void mousePressed(int x, int y, int button) ;
     void mouseReleased(int x, int y, int button) ;
+    void tweenCompleted(int &id);
     void stateExit();
     void stateEnter();
     void keyPressed(int key) ;
@@ -67,6 +68,7 @@ public:
 
     bool bBox2D;
     bool bCapture;
+    bool bSaveFace;
     CountDown countDown;
     ofImage lastCapture;
 	
@@ -76,4 +78,9 @@ public:
 		float screenHeight;
 	ofImage image,image2,overlayimage,overlayimage2;
     int timeCount;
+
+    ofxTween tween;
+    ofxEasingLinear easing;
+    bool bExit;
+
 };

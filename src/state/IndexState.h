@@ -35,20 +35,34 @@
 #include "ofxState.h"
 #include "SharedData.h"
 
+
 class IndexState : public Apex::ofxState<SharedData>
 {
 public:
     void setup(){
-		
+		ofAddListener(tween.end_E,this,&IndexState::tweenCompleted);
 		image.loadImage("images/index.jpg");
 	}
 	void update(){
-        getSharedData().faceTracking.update();
+        getSharedData().faceTracking.minFaceAreaW = getSharedData().panel.getValueF("minFaceAreaW");
+        getSharedData().faceTracking.minFaceAreaH = getSharedData().panel.getValueF("minFaceAreaH");
+
         getSharedData().faceTracking.detectFace();
-        if(getSharedData().faceTracking.facefinder.blobs.size())
+        if(getSharedData().faceTracking.facefinder.blobs.size()>=1 && !bExit && tween.isCompleted())
         {
-            changeState("SelectPlayerState");
+            bExit = true;
+            ofLog(OF_LOG_NOTICE,"Detected Faces : "+ofToString(getSharedData().faceTracking.facefinder.blobs.size()));
+            ofLog(OF_LOG_NOTICE,"Face Tracked go to SelectPalyerState");
+            
+            keyPressed(OF_KEY_RETURN);
         }
+        if(getSharedData().bParticle)
+        {
+            for(int i = 0; i < getSharedData().p.size(); i++){
+                getSharedData().p[i].update();
+            }
+        }
+
     }
 	void draw(){
 
@@ -57,24 +71,67 @@ public:
 		ofSetColor(255);
 		image.draw(0,0,ofGetWidth(),ofGetHeight());
 		ofPopStyle();
+        ofPushStyle();
+        ofEnableAlphaBlending();
+        ofFill();
+        ofSetColor(0,0,0,tween.update());
+        ofRect(0,0,ofGetWidth(),ofGetHeight());
+        ofPopStyle();
+        if(ofGetLogLevel()==OF_LOG_VERBOSE)
+        {
+            getSharedData().faceTracking.draw();
+        }
+        if(getSharedData().bParticle)
+        {        
+            for(int i = 0; i < getSharedData().p.size(); i++){
+                getSharedData().p[i].draw();
+            }
+        }
 	}
 	void mouseMoved(int x, int y) {}
     void mouseDragged(int x, int y, int button) {}
     void mousePressed(int x, int y, int button) {}
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
+        bExit = false;
+        getSharedData().bParticle = false;
 	}
 	void stateEnter()
 	{
+        getSharedData().bParticle = true;
+        bExit = false;
+        tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
 	}
+    void tweenCompleted(int &id)
+    {
+        ofLog(OF_LOG_VERBOSE,getName()+" Tween Complete " + ofToString(id));
+        switch(id)
+        {
+            case STATE_ENTER:
+                getSharedData().bParticle = false;
+                break;
+            case STATE_EXIT:
+                changeState("SelectPlayerState");
+                break;
+        }
+    }
     void keyPressed(int key) {
         if(key==OF_KEY_RETURN)
         {
-            changeState("SelectPlayerState");
+            //bExit = true;
+            tween.setParameters(STATE_EXIT,easing,ofxTween::easeOut,0,255,1000,0);
+            getSharedData().bParticle = true;
+            for(int i = 0; i < getSharedData().p.size(); i++){
+                getSharedData().p[i].reset();
+            }
         }
     }
     void keyReleased(int key) {}
     
 	ofImage image ;
 	string getName(){ return "IndexState";}
+    ofxTween tween;
+    ofxEasingLinear easing;
+    bool bExit;
+    
 };

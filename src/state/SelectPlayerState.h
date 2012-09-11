@@ -55,6 +55,7 @@ public:
 		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
 		gui->setDrawBack(false);
 		gui->setVisible(false);
+        ofAddListener(tween.end_E,this,&SelectPlayerState::tweenCompleted);
 	}
 	void guiEvent(ofxUIEventArgs &e)
 	{
@@ -67,8 +68,7 @@ public:
 			cout << "ONE_PLAYER " << btn->getValue() << endl; 
 			if(btn->getValue()==1)
 			{
-				getSharedData().numPlayer = 1;
-				changeState("CaptureState");
+				keyPressed('1');
 				
 			}
 		}
@@ -78,16 +78,21 @@ public:
 			cout << "TWO_PLAYER " << btn->getValue() << endl; 
 			if(btn->getValue()==1)
 			{
-				getSharedData().numPlayer = 2;
-				changeState("CaptureState");
-				
+				keyPressed('2');				
 			}
 		}
 	}
 	void update(){
-        if(ofGetElapsedTimef()-timeCount>30)
+        //        if(ofGetElapsedTimef()-timeCount>30)
+        //        {
+        ////            changeState("IndexState");
+        //            tween.setParameters(OF_KEY_BACKSPACE,easing,ofxTween::easeOut,0,255,1000,0);
+        //        }
+        if(getSharedData().bParticle)
         {
-            changeState("IndexState");
+            for(int i = 0; i < getSharedData().p.size(); i++){
+                getSharedData().p[i].update();
+            }
         }
     }
 	void draw(){
@@ -95,9 +100,22 @@ public:
 		ofEnableAlphaBlending();
 		ofSetColor(255);
 		image.draw(0,0,ofGetWidth(),ofGetHeight());
-
+        
 		ofPopStyle();
 		gui->draw();
+        ofPushStyle();
+        ofEnableAlphaBlending();
+        ofFill();
+        ofSetColor(0,0,0,tween.update());
+        ofRect(0,0,ofGetWidth(),ofGetHeight());
+        ofPopStyle();
+        if(getSharedData().bParticle)
+        {        
+            for(int i = 0; i < getSharedData().p.size(); i++){
+                getSharedData().p[i].draw();
+            }
+        }
+        
 	}
 	void mouseMoved(int x, int y) {}
     void mouseDragged(int x, int y, int button) {}
@@ -106,34 +124,86 @@ public:
     void stateExit(){
 		gui->setVisible(false);
         image.clear();
+        
 	}
 	void stateEnter()
 	{
         timeCount = ofGetElapsedTimef();
         image.loadImage("images/selectplayer.jpg");
-				button1->drawFillHighlight();
-				button2->drawFillHighlight();
+        button1->drawFillHighlight();
+        button2->drawFillHighlight();
 		gui->setVisible(true);
+        bExit = false;
+        tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
+        getSharedData().bParticle = true;
 	}
     void keyPressed(int key) {
-        if(key=='1')
+        tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
+        switch(key)
         {
-            getSharedData().numPlayer = 1;
-            changeState("CaptureState");
+            case '1':
+            case '2':
+            case OF_KEY_RETURN:
+            {
+                
+                getSharedData().bParticle = true;
+                for(int i = 0; i < getSharedData().p.size(); i++){
+                    getSharedData().p[i].reset();
+                }
+            }
+                break;
         }
-        else if (key =='2')
+    }
+    void tweenCompleted(int &id)
+    {
+        ofLog(OF_LOG_VERBOSE,getName()+" Tween Complete " + ofToString(id));
+        switch(id)
         {
-            getSharedData().numPlayer = 2;
-            changeState("CaptureState");
+            case STATE_ENTER:
+                getSharedData().bParticle = false;
+                break;
+                //            case STATE_EXIT:
+                //                changeState("SelectPlayerState");
+                //                break;
+            case '1':
+            {
+                getSharedData().numPlayer = 1;
+                changeState("CaptureState");
+            }
+                break;
+            case '2':
+            {
+                getSharedData().numPlayer = 2;
+                changeState("CaptureState");
+                
+            }
+                break;
+            case OF_KEY_RETURN:
+            {
+                getSharedData().numPlayer = 1;
+                changeState("CaptureState");
+            }
+                break;
+            case OF_KEY_BACKSPACE:
+            {
+                changeState("IndexState");
+            }
+                break;
         }
+        
     }
     void keyReleased(int key) {}
     
 	ofImage image ;
 	ofxUICanvas *gui; 
     string getName(){ return "SelectPlayerState";}
-
+    
 	ofxUIButton  *button1;
 	ofxUIButton  *button2;
     int timeCount;
+    
+    ofxTween tween;
+    ofxEasingLinear easing;
+    bool bExit;
+    
 };

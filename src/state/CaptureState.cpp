@@ -86,11 +86,19 @@ void CaptureState::setup(){
     countDown.setup(getSharedData().xml.getValue("COUNTDOWN",1)*1000);
     ofAddListener(countDown.COUNTER_REACHED,this,&CaptureState::Shot);
     ofAddListener(countDown.COMPLETE,this,&CaptureState::completeShot);
-	
+	ofAddListener(tween.end_E,this,&CaptureState::tweenCompleted);
 }
 
 //--------------------------------------------------------------
 void CaptureState::update(){
+    if(getSharedData().bParticle)
+    {        
+        for(int i = 0; i < getSharedData().p.size(); i++){
+            getSharedData().p[i].update();
+        }
+        return;
+    }
+
     if(!bBox2D)
     {
         getSharedData().faceTracking.minFaceAreaW = getSharedData().panel.getValueF("minFaceAreaW");
@@ -101,7 +109,7 @@ void CaptureState::update(){
         getSharedData().faceTracking.faceOffset.height = getSharedData().panel.getValueF("faceOffsetH");
         for(int j = 0 ;j < MAX_PLAYER ; j++)
         {
-			
+            
             feature[0] = &getSharedData().faceTracking.leftEye[j];
             feature[1] = &getSharedData().faceTracking.rightEye[j];
             feature[2] = &getSharedData().faceTracking.nose[j];
@@ -123,44 +131,51 @@ void CaptureState::update(){
         
         getSharedData().faceTracking.update(bCapture);
     }
-    else box2d.update();
+    else {
+        box2d.update();
+    }
     
     if(bCapture)
     {
         lastCapture.setFromPixels(getSharedData().faceTracking.getPixels(),camW,camH,OF_IMAGE_COLOR);
         bCapture = false;
         for(int player = 0 ; player<getSharedData().numPlayer ; player++)
-		{
-			char imagename[1024];
-			stringstream format;
-			stringstream format2;
-			
-			if(player==1)format <<"%0"<<getSharedData().numDigi<<"d2_.jpg";
-			else format <<"%0"<<getSharedData().numDigi<<"d.jpg";
-			ofLog(OF_LOG_VERBOSE, "format ",format.str().data() );
-			sprintf(imagename, format.str().c_str(), getSharedData().counter);
-			char code[getSharedData().numDigi];
-			
-			format2 <<"%0"<<getSharedData().numDigi<<"d";
-			sprintf(code, format2.str().c_str(), getSharedData().counter);
-			
-			getSharedData().lastCode = code;
-			ofLog(OF_LOG_NOTICE, "Exported file name = ",imagename );
-			ofLog(OF_LOG_NOTICE, "Exported code = "+getSharedData().lastCode);
-			getSharedData().faceTracking.savingFace(player,getSharedData().path_to_save+"/"+imagename);
-			getSharedData().lastFileNames.push_back(getSharedData().path_to_save+"/"+imagename);
-		}
+        {
+            char imagename[1024];
+            stringstream format;
+            stringstream format2;
+            
+            if(player==1)format <<"%0"<<getSharedData().numDigi<<"d2_.jpg";
+            else format <<"%0"<<getSharedData().numDigi<<"d.jpg";
+            ofLog(OF_LOG_VERBOSE, "format ",format.str().data() );
+            sprintf(imagename, format.str().c_str(), getSharedData().counter);
+            char code[getSharedData().numDigi];
+            
+            format2 <<"%0"<<getSharedData().numDigi<<"d";
+            sprintf(code, format2.str().c_str(), getSharedData().counter);
+            
+            getSharedData().lastCode = code;
+            ofLog(OF_LOG_NOTICE, "Exported file name = ",imagename );
+            ofLog(OF_LOG_NOTICE, "Exported code = "+getSharedData().lastCode);
+            getSharedData().faceTracking.savingFace(player,getSharedData().path_to_save+"/"+imagename);
+            getSharedData().lastFileNames.push_back(getSharedData().path_to_save+"/"+imagename);
+        }
         getSharedData().counter++;  
         if (getSharedData().xml.pushTag("DATA")) {
-			getSharedData().xml.setValue("COUNTER", getSharedData().counter);
-			getSharedData().xml.popTag();
-			
-			
+            getSharedData().xml.setValue("COUNTER", getSharedData().counter);
+            getSharedData().xml.popTag();
+            
+            
         }
         getSharedData().save();	
-                
+        
     }
-	
+    if(bSaveFace && bBox2D)
+    {
+        saveFace();
+        bSaveFace = false;
+    }
+    
 }
 
 
@@ -215,8 +230,8 @@ void CaptureState::draw(){
     else
     {
         
-    
-	
+        
+        
         switch(getSharedData().numPlayer)
         {
             case 1:
@@ -234,28 +249,40 @@ void CaptureState::draw(){
                 overlayimage2.draw(0,0,ofGetWidth(),ofGetHeight());
                 break;
         }
-
+        
     }
-    if(ofGetLogLevel()==OF_LOG_VERBOSE)
     {
-
-    }
-    int diff = ofGetElapsedTimef()-timeCount;
-
+        int diff = ofGetElapsedTimef()-timeCount;
+        
         if(diff<=8)
         {
             glPushMatrix();
+            glTranslatef(ofGetWidth()-64,0,0);
             glScalef(0.5,0.5,1);
-            getSharedData().font.drawString(ofToString(9-(diff),0),ofGetWidth() - 64,128);
+            getSharedData().font.drawString(ofToString(9-(diff),0), - 64,128);
             glPopMatrix();
             if (diff==8)
             {
-                keyPressed(OF_KEY_RETURN);
+                keyPressed('C');
                 
             }
         }
+    }
     
 	countDown.draw(ofGetWidth()/2-100,0, 200,200);
+    
+    ofPushStyle();
+    ofEnableAlphaBlending();
+    ofFill();
+    ofSetColor(0,0,0,tween.update());
+    ofRect(0,0,ofGetWidth(),ofGetHeight());
+    ofPopStyle();
+    if(getSharedData().bParticle)
+    {        
+        for(int i = 0; i < getSharedData().p.size(); i++){
+            getSharedData().p[i].draw();
+        }
+    }
 }
 
 void CaptureState::stateExit() {
@@ -266,21 +293,40 @@ void CaptureState::stateExit() {
 	overlayimage.clear();
     overlayimage2.clear();
     timeCount = 0;
+    countDown.stop();
 }
 void CaptureState::stateEnter()
 {
+    bSaveFace = false;
     ratio = (ofGetHeight()*1.0f)/(camH*1.0f);
 	screenWidth = camW*ratio;
 	screenHeight = ofGetHeight();
-
+    
     timeCount = ofGetElapsedTimef();
-    keyPressed(OF_KEY_BACKSPACE);
+    //    keyPressed(OF_KEY_BACKSPACE);
+    lastCapture.clear();
+    bBox2D = false;
     image.loadImage("images/CaptureState.png");
     image2.loadImage("images/CaptureState2.png");
 	overlayimage.loadImage("images/CaptureStateOverlay.png");
     overlayimage2.loadImage("images/CaptureStateOverlay2.png");
-    
+    tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
+    getSharedData().bParticle = true;
 }
+void CaptureState::tweenCompleted(int &id)
+{
+    ofLog(OF_LOG_VERBOSE,getName()+" Tween Complete " + ofToString(id));
+    switch(id)
+    {
+        case STATE_ENTER:
+            getSharedData().bParticle = false;
+            break;
+        case STATE_EXIT:
+            changeState("EndState");
+            break;
+    }
+}
+
 //--------------------------------------------------------------
 void CaptureState::keyPressed(int key){
     switch(key)
@@ -291,7 +337,7 @@ void CaptureState::keyPressed(int key){
         case 'b':
         {
             
-            saveFace();
+            
             if(bBox2D)
             {
                 //TO-DO add clear box2d body and patricle when add new set of face feature
@@ -330,17 +376,30 @@ void CaptureState::keyPressed(int key){
                 }
                 getSharedData().faceTracking.clear();
             }
-            timeCount = ofGetElapsedTimef();
+            
         }
             break;
-        case OF_KEY_RETURN:
+        case 'C':
             //bBox2D = !bBox2D;
-            if(!bBox2D)countDown.start();
-			else changeState("EndState");
+            if(!bBox2D){
+                
+                countDown.start();
+            }
+			else {
+                getSharedData().bParticle = true;
+                for(int i = 0; i < getSharedData().p.size(); i++){
+                    getSharedData().p[i].reset();
+                }
+                tween.setParameters(STATE_EXIT,easing,ofxTween::easeOut,0,255,1000,0);
+                
+            }
+            break;
+        case OF_KEY_RETURN:
+            tween.setParameters(STATE_EXIT,easing,ofxTween::easeOut,0,255,1000,0);
             break;
         case OF_KEY_BACKSPACE:
-			lastCapture.clear();
-            bBox2D = false;
+            changeState("SelectPlayerState");
+            
             break;
     }
 }
@@ -381,6 +440,7 @@ void CaptureState::completeShot(ofEventArgs &arg)
 {
     ofLog(OF_LOG_VERBOSE,"completeShot");
     bBox2D = true;
+    bSaveFace = true;
     keyPressed('b');
     
 }
@@ -427,5 +487,5 @@ void CaptureState::saveFace()
         //TO_DO load image and map the face on shoes;
         //getSharedData().lastFileNames.pop_back();
     }
-
+    timeCount = ofGetElapsedTimef();
 }

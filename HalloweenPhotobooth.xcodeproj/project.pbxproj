@@ -10,7 +10,6 @@
 		0546d1a38e13bd319cc9755b5ca7e1a0 /* OscReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9bf3aa0d4faa89d0f8a0e545403162be /* OscReceivedElements.cpp */; };
 		125506cd3e5f428aafe5cc657e873ba0 /* ofxTCPManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = f399b91e98dc31cda6ddacb450bb19da /* ofxTCPManager.cpp */; };
 		169d3c72fde6c5590a1616f500a456b4 /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7b6a03390302d5a2c9f0e4ab630ae8d6 /* ofxCvFloatImage.cpp */; };
-		1B26082415F9A1EE002836EA /* PSBlendShader.frag in Sources */ = {isa = PBXBuildFile; fileRef = 1B26082315F9A1EE002836EA /* PSBlendShader.frag */; };
 		1B41316515F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B41316315F6EAFE00BAE320 /* ofxTrueTypeFontUC.cpp */; };
 		1BC0074A15F59931005AD984 /* CountDown.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0074815F59931005AD984 /* CountDown.cpp */; };
 		1BC0079215F59F5E005AD984 /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1BC0074D15F59F5E005AD984 /* ofxTimer.cpp */; };
@@ -31,6 +30,7 @@
 		250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ce9c7160245b19131dae61282ee6cb53 /* ofxCvColorImage.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
 		510cafe035e576a4e1502d52c11243bb /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6def695b88ba5faaceaa93785a12fd9 /* UdpSocket.cpp */; };
+		514E75A215FF442500D080AA /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 514E75A015FF442500D080AA /* Particle.cpp */; };
 		51562DAD15F79873008E5D60 /* EndState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DA915F79873008E5D60 /* EndState.cpp */; };
 		51562DAE15F79873008E5D60 /* IndexState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAA15F79873008E5D60 /* IndexState.cpp */; };
 		51562DAF15F79873008E5D60 /* LicenseState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAB15F79873008E5D60 /* LicenseState.cpp */; };
@@ -236,7 +236,6 @@
 		1B1F3C6715F5F64C00EA6F0D /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWaveform.h; sourceTree = "<group>"; };
 		1B1F3C6815F5F64C00EA6F0D /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidget.h; sourceTree = "<group>"; };
 		1B1F3C6915F5F64C00EA6F0D /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
-		1B26082315F9A1EE002836EA /* PSBlendShader.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = PSBlendShader.frag; path = bin/data/shaders/PSBlendShader.frag; sourceTree = "<group>"; };
 		1B41315E15F6EA6700BAE320 /* EndState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EndState.h; sourceTree = "<group>"; };
 		1B41316015F6EAFE00BAE320 /* install.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = install.xml; sourceTree = "<group>"; };
 		1B41316115F6EAFE00BAE320 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
@@ -305,6 +304,8 @@
 		49effcf36cf194cce0e1faabecebbc9b /* kdtree_index.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kdtree_index.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kdtree_index.h; sourceTree = SOURCE_ROOT; };
 		4e95fb446a9c9c6f0de12d752f6604b3 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscPrintReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
+		514E75A015FF442500D080AA /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		514E75A115FF442500D080AA /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		51562DA715F7858A008E5D60 /* LicenseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseState.h; sourceTree = "<group>"; };
 		51562DA915F79873008E5D60 /* EndState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EndState.cpp; sourceTree = "<group>"; };
 		51562DAA15F79873008E5D60 /* IndexState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IndexState.cpp; sourceTree = "<group>"; };
@@ -780,6 +781,8 @@
 		1BC0074715F59931005AD984 /* utils */ = {
 			isa = PBXGroup;
 			children = (
+				514E75A015FF442500D080AA /* Particle.cpp */,
+				514E75A115FF442500D080AA /* Particle.h */,
 				1BC0074815F59931005AD984 /* CountDown.cpp */,
 				1BC0074915F59931005AD984 /* CountDown.h */,
 			);
@@ -1548,7 +1551,6 @@
 			isa = PBXGroup;
 			children = (
 				51D11DB515FA2F520066B8B7 /* config.xml */,
-				1B26082315F9A1EE002836EA /* PSBlendShader.frag */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				1B84F1EB15F0C11F002B8AD4 /* settings.xml */,
@@ -1956,7 +1958,7 @@
 				51562DAE15F79873008E5D60 /* IndexState.cpp in Sources */,
 				51562DAF15F79873008E5D60 /* LicenseState.cpp in Sources */,
 				51562DB015F79873008E5D60 /* SelectPlayerState.cpp in Sources */,
-				1B26082415F9A1EE002836EA /* PSBlendShader.frag in Sources */,
+				514E75A215FF442500D080AA /* Particle.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

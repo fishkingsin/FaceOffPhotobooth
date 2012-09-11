@@ -38,6 +38,7 @@
 #include "ofxPSBlend.h"
 #define gridRes 8
 #define MULTIPY 1
+//#define USE_PSBLEND
 class FaceData
 {
 public:
@@ -48,7 +49,9 @@ public:
     string imageFile;
     string prefix;
     ofxGLWarper warpper;
+#ifdef    USE_PSBLEND
 	ofxPSBlend psBlend;
+#endif
 	bool isSetup;
     FaceData()
     {
@@ -68,7 +71,9 @@ public:
         faceImage.clear();
 		if(!isSetup)
 		{
+#ifdef    USE_PSBLEND
 			psBlend.setup(overlayImage.getWidth(), overlayImage.getHeight());
+#endif
 			isSetup = true;
         }
 		imageFile = img_fn;
@@ -109,8 +114,9 @@ public:
     {
 		ofSetColor(255);
         ofEnableAlphaBlending();
-		//backgroundImage.draw(0,0);
+#ifdef    USE_PSBLEND
 		psBlend.begin();
+#endif
 		backgroundImage.draw(0,0);
 		ofPushStyle();
 		ofPushMatrix();
@@ -120,9 +126,10 @@ public:
 		
 		ofPopMatrix();
 		ofPopStyle();
-
+#ifdef    USE_PSBLEND
 		psBlend.end();
 		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+#endif
         warpper.draw();
 		overlayImage.draw(0,0);
     }
@@ -131,7 +138,7 @@ public:
         ofFbo fbo;
         fbo.allocate(overlayImage.width,overlayImage.height);
         fbo.begin();
-        ofClearAlpha();
+        ofClear(0);
         draw();
         fbo.end();
         ofPixels pixels;		
@@ -172,8 +179,9 @@ public:
 		ofSetColor(255);
 		
         backgroundImage.draw(0,0);
-		
+		#ifdef    USE_PSBLEND
 		psBlend.begin();
+#endif
 		ofPushStyle();
 		ofPushMatrix();
 		{
@@ -195,9 +203,10 @@ public:
         ofPopMatrix();
 		ofPopStyle();
         
-
+#ifdef    USE_PSBLEND
 		psBlend.end();
 		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+#endif
 		warpper.draw();
 		warpper2.draw();
         

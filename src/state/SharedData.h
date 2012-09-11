@@ -36,6 +36,10 @@
 #include "FaceMapper.h"
 #include "ofxAutoControlPanel.h"
 #include "ofxTrueTypeFontUC.h"
+#include "ofxTween.h"
+#include "Particle.h"
+#define STATE_ENTER 0
+#define STATE_EXIT 1
 class SharedData
 {
 public:
@@ -55,7 +59,7 @@ public:
 		std::fstream ifs( ofToDataPath("presets.bin").c_str(), std::ios::in | std::ios::binary );
 		ifs.read( (char*) &counter, sizeof(counter) );
 		ifs.close();
-        cout <<"Loading Counter : " << counter;
+        ofLog(OF_LOG_NOTICE,"Loading Counter : " +ofToString( counter));
 	}
 	void save()
 	{
@@ -63,12 +67,13 @@ public:
         std::fstream ofs( ofToDataPath("presets.bin").c_str(), std::ios::out | std::ios::binary );
 		ofs.write( (const char*)&counter, sizeof(counter) );
 		ofs.close();
-        cout <<"Saving Counter : " << counter;
+        ofLog(OF_LOG_NOTICE,"Saving Counter : " + ofToString( counter));
 	}
 //    enum NUM_PALYER
 //    {
 //        ONE,TWO
 //    };
     int numPlayer;
-    
+    vector <Particle> p;
+    bool bParticle;
 };
