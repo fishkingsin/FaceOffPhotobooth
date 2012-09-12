@@ -80,6 +80,7 @@ public:
 //        glScalef(0.5,0.5,1);
 //        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0),ofGetWidth() - 64,128);
 //        glPopMatrix();
+        ofSetColor(0);
 		getSharedData().font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
         ofPopStyle();
 		ofPopStyle();

@@ -19,7 +19,7 @@ void testApp::setup(){
 	{
 		if(xml.pushTag("DATA"))
 		{
-            int width = xml.getValue("WIDTH", 1280);
+            int width = xml.getValue("WIDTH", 1280);    
             int height = xml.getValue("HEIGHT", 720);
             ofSetFullscreen(xml.getValue("FULLSCREEN", 0));
             ofSetWindowShape(width, height);

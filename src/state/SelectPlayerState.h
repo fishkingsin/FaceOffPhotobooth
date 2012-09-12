@@ -47,7 +47,7 @@ public:
 		//float dim = 16; 
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
-		gui = new ofxUICanvas(ofGetWidth()/2-525, ofGetHeight()/2, 525+687,555);
+		gui = new ofxUICanvas(getSharedData().xml.getValue("WIDTH", 1920)/2-(525+687)*0.5, getSharedData().xml.getValue("HEIGHT", 1080)/2, 525+687,555);
 		
 		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(525,550, true, "GUI/images/1player.png","ONE_PLAYER"));
 		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(687,555, true, "GUI/images/2player.png","TWO_PLAYER"));

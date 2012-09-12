@@ -153,7 +153,7 @@ public:
         string subImageName = imageFile.substr(0,imageFile.length()-4);
         string fileName = subImageName+prefix+".png";
         ofSaveImage(pixels,fileName ,OF_IMAGE_QUALITY_BEST);
-		return fileName;
+		return fileName.substr(fileName.length()-10,fileName.length());
         
     }
     void saveSetting()

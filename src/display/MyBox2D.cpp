@@ -42,14 +42,14 @@ void MyBox2D::setup()
 	// setup world A
     box2d[0].init();
     box2d[0].setFPS(60);
-    box2d[0].setGravity(0, 0.5);
+    box2d[0].setGravity(0, 2);
     box2d[0].createBounds(boundsA);
     box2d[0].registerGrabbing();
 	
 	
 	box2d[1].init();
     box2d[1].setFPS(60);
-    box2d[1].setGravity(0, 0.5);
+    box2d[1].setGravity(0, 2);
     box2d[1].createBounds(boundsB);
     box2d[1].registerGrabbing();
 }
