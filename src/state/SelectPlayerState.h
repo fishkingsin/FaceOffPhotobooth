@@ -47,10 +47,10 @@ public:
 		//float dim = 16; 
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
-		gui = new ofxUICanvas(0,0,ofGetWidth(), ofGetHeight());//ofGetWidth()/2, ofGetHeight()/2-61, 284*2,122);
+		gui = new ofxUICanvas(ofGetWidth()/2-525, ofGetHeight()/2, 525+687,555);
 		
-		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(ofGetWidth()*0.5,ofGetHeight(), true, "GUI/images/1player.png","ONE_PLAYER"));
-		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(ofGetWidth()*0.5,ofGetHeight(), true, "GUI/images/2player.png","TWO_PLAYER"));
+		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(525,550, true, "GUI/images/1player.png","ONE_PLAYER"));
+		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(687,555, true, "GUI/images/2player.png","TWO_PLAYER"));
 		//button->setVidible(true);
 		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
 		gui->setDrawBack(false);
@@ -138,19 +138,23 @@ public:
         getSharedData().bParticle = true;
 	}
     void keyPressed(int key) {
-        tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
+        
         switch(key)
         {
             case '1':
             case '2':
             case OF_KEY_RETURN:
-            {
+            
                 
                 getSharedData().bParticle = true;
                 for(int i = 0; i < getSharedData().p.size(); i++){
                     getSharedData().p[i].reset();
                 }
-            }
+                gui->setVisible(false);
+            tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
+                break;
+            case OF_KEY_BACKSPACE:
+            tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
                 break;
         }
     }

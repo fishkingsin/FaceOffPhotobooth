@@ -7,7 +7,7 @@ CountDown::CountDown()
     countImage = NULL;
     num = 0;
     bShow = false;
-    scale = 2;
+    scale = 1;
     bFlash = false;
     fireComplete  =true;
     //    rect.setColor(0,0,0);

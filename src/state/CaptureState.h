@@ -36,14 +36,14 @@
 #include "SharedData.h"
 #include "ofxTimer.h"
 #include "CountDown.h"
-#define SINGLE_X 0.395f
-#define SINGLE_Y 0.165f
-#define SINGLE_W 0.242f
-#define SINGLE_H 0.699f
+#define SINGLE_X 0.401042f
+#define SINGLE_Y 0.170370f
+#define SINGLE_W 0.204166f
+#define SINGLE_H 0.444444f
 
-#define DOU1_X 0.153f
+#define DOU1_X 0.246875f
 
-#define DOU2_X 0.639583f
+#define DOU2_X 0.557291f
 
 class CaptureState : public Apex::ofxState<SharedData>
 {
@@ -76,11 +76,13 @@ public:
 	float ratio;
 	float screenWidth;
 		float screenHeight;
-	ofImage image,image2,overlayimage,overlayimage2;
+	ofImage image,overlayimage;
     int timeCount;
 
     ofxTween tween;
     ofxEasingLinear easing;
     bool bExit;
+    ofPoint videoOffset;
+    int x,y,w,h,x2;
 
 };

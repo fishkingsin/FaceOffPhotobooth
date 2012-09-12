@@ -4,8 +4,9 @@
 	<HEIGHT>900</HEIGHT>
 	<FULLSCREEN>1</FULLSCREEN>
     <COUNTDOWN>1</COUNTDOWN>
-    <CAPTURE_PATH>/Library/WebServer/Documents/pic</CAPTURE_PATH>
+    <CAPTURE_PATH>/Library/WebServer/Documents/images</CAPTURE_PATH>
     <DIGI>5</DIGI>
     <PATH>./captures</PATH>
     <DIGI>6</DIGI>
+    <FONT_PATH>./fonts/CharlemagneStd-Bold.otf</FONT_PATH>
 </DATA>

@@ -24,6 +24,12 @@ void testApp::setup(){
             ofSetFullscreen(xml.getValue("FULLSCREEN", 0));
             ofSetWindowShape(width, height);
 			stateMachine.getSharedData().path_to_save = xml.getValue("CAPTURE_PATH", "./captures");
+            stateMachine.getSharedData().filesXml.loadFile(stateMachine.getSharedData().path_to_save+"/files.xml");
+            if(!stateMachine.getSharedData().filesXml.pushTag("XML"))
+            {
+                stateMachine.getSharedData().filesXml.addTag("XML");
+                stateMachine.getSharedData().filesXml.pushTag("XML");
+            }
 			stateMachine.getSharedData().numDigi = xml.getValue("DIGI", 5);
             stateMachine.getSharedData().font.loadFont(xml.getValue("FONT_PATH", "fonts/LunacyMore.ttf"),xml.getValue("FONT_SIZE", 128));
 			ofDirectory dir;
@@ -83,7 +89,13 @@ void testApp::setup(){
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
     stateMachine.getSharedData().numPlayer = 1;
-    int num = 5000;
+    for(int i = 0 ; i < NUM_SEQ ;i++)
+    {
+        image[i].loadSequence("images/bat/bat_", "png", 0, 154, 5);
+    }
+    
+    int num = 3000;
+    
 	stateMachine.getSharedData().p.assign(num, Particle());
     resetParticles();
     
@@ -181,5 +193,7 @@ void testApp::resetParticles(){
 		stateMachine.getSharedData().p[i].setMode(PARTICLE_MODE_ATTRACT);		
     
 		stateMachine.getSharedData().p[i].reset();
+        stateMachine.getSharedData().p[i].image = &image[i%NUM_SEQ];
+        stateMachine.getSharedData().p[i].id = i;
 	}	
 }

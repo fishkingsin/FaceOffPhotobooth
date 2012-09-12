@@ -40,6 +40,11 @@ string CaptureState::getName()
 void CaptureState::setup(){
     
     getSharedData().faceTracking.setup();
+    
+    getSharedData().panel.setWhichPanel("General");
+    getSharedData().panel.setWhichColumn(0);
+    getSharedData().panel.addSlider("videoOffsetX",videoOffset.x,0,ofGetWidth());
+    getSharedData().panel.addSlider("videoOffsetY",videoOffset.y,0,ofGetWidth());
     getSharedData().panel.setWhichPanel("FaceTracking");
     getSharedData().panel.setWhichColumn(0);
     getSharedData().panel.addSlider("minFaceAreaW",getSharedData().faceTracking.minFaceAreaW,1,512);
@@ -101,6 +106,8 @@ void CaptureState::update(){
 
     if(!bBox2D)
     {
+        videoOffset.x = getSharedData().panel.getValueF("videoOffsetX");
+        videoOffset.y = getSharedData().panel.getValueF("videoOffsetY");
         getSharedData().faceTracking.minFaceAreaW = getSharedData().panel.getValueF("minFaceAreaW");
         getSharedData().faceTracking.minFaceAreaH = getSharedData().panel.getValueF("minFaceAreaH");
         getSharedData().faceTracking.faceOffset.x = getSharedData().panel.getValueF("faceOffsetX");
@@ -205,24 +212,23 @@ void CaptureState::draw(){
         {
             case 1:
             {
-                image.draw(0,0,ofGetWidth(),ofGetHeight());
+                
                 int x = SINGLE_X*ofGetWidth();//757;
                 int y = SINGLE_Y*ofGetHeight();//178;    
                 int w = SINGLE_W*ofGetWidth();//463;
                 int h = SINGLE_H*ofGetHeight();//754;
                 capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, 0, 0, camW*0.5, camH);
+                image.draw(0,0,ofGetWidth(),ofGetHeight());
             }
                 break;
             case 2:
             {
-                image2.draw(0,0,ofGetWidth(),ofGetHeight());
-                int x = DOU1_X*ofGetWidth();
-                int y = SINGLE_Y*ofGetHeight();
-                int w = SINGLE_W*ofGetWidth();
-                int h = SINGLE_H*ofGetHeight();
-                capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, 0, 0, camW*0.5, camH);
-                int x2 = DOU2_X*ofGetWidth();
-                capturedScreen.getTextureReference().drawSubsection(x2+w, y, -w, h, camW*0.5, 0, camW*0.5, camH);
+                
+
+                capturedScreen.getTextureReference().drawSubsection(x2+w, y, -w, h, 0, 0, camW*0.5, camH);
+                
+                capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, camW*0.5, 0, camW*0.5, camH);
+                image.draw(0,0,ofGetWidth(),ofGetHeight());
             }
                 break;
         }
@@ -235,18 +241,18 @@ void CaptureState::draw(){
         switch(getSharedData().numPlayer)
         {
             case 1:
-                capturedScreen.draw(screenWidth+0.5*(ofGetWidth()-screenWidth)-screenWidth*0.25,
-                                    0,
+                capturedScreen.draw(videoOffset.x+screenWidth+0.5*(ofGetWidth()-screenWidth)-screenWidth*0.25,
+                                    videoOffset.y,
                                     -screenWidth,
                                     screenHeight);
                 overlayimage.draw(0,0,ofGetWidth(),ofGetHeight());
                 break;
             case 2:
-                capturedScreen.draw(screenWidth+0.5*(ofGetWidth()-screenWidth),
-                                    0,
+                capturedScreen.draw(videoOffset.x+screenWidth+0.5*(ofGetWidth()-screenWidth),
+                                    videoOffset.y,
                                     -screenWidth,
                                     screenHeight);
-                overlayimage2.draw(0,0,ofGetWidth(),ofGetHeight());
+                overlayimage.draw(0,0,ofGetWidth(),ofGetHeight());
                 break;
         }
         
@@ -256,11 +262,19 @@ void CaptureState::draw(){
         
         if(diff<=8)
         {
+            if(!bBox2D)
+            {
+            ofPushStyle();
+            ofSetColor(0);
             glPushMatrix();
-            glTranslatef(ofGetWidth()-64,0,0);
+            glTranslatef(ofGetWidth()-64,ofGetHeight()-64,0);
+            glPushMatrix();
             glScalef(0.5,0.5,1);
-            getSharedData().font.drawString(ofToString(9-(diff),0), - 64,128);
+            getSharedData().font.drawString(ofToString(8-(diff),0), - 256,0);
             glPopMatrix();
+            glPopMatrix();
+            ofPopStyle();
+            }
             if (diff==8)
             {
                 keyPressed('C');
@@ -269,7 +283,7 @@ void CaptureState::draw(){
         }
     }
     
-	countDown.draw(ofGetWidth()/2-100,0, 200,200);
+	countDown.draw(ofGetWidth()/2-110,0, 200,200);
     
     ofPushStyle();
     ofEnableAlphaBlending();
@@ -289,14 +303,19 @@ void CaptureState::stateExit() {
     
 	getSharedData().faceTracking.exit();
 	image.clear();
-    image2.clear();
+    image.clear();
 	overlayimage.clear();
-    overlayimage2.clear();
+    overlayimage.clear();
     timeCount = 0;
     countDown.stop();
 }
 void CaptureState::stateEnter()
 {
+    x = DOU1_X*ofGetWidth();
+    y = SINGLE_Y*ofGetHeight();
+    w = SINGLE_W*ofGetWidth();
+    h = SINGLE_H*ofGetHeight();
+    x2 = DOU2_X*ofGetWidth();
     bSaveFace = false;
     ratio = (ofGetHeight()*1.0f)/(camH*1.0f);
 	screenWidth = camW*ratio;
@@ -306,12 +325,19 @@ void CaptureState::stateEnter()
     //    keyPressed(OF_KEY_BACKSPACE);
     lastCapture.clear();
     bBox2D = false;
-    image.loadImage("images/CaptureState.png");
-    image2.loadImage("images/CaptureState2.png");
-	overlayimage.loadImage("images/CaptureStateOverlay.png");
-    overlayimage2.loadImage("images/CaptureStateOverlay2.png");
-    tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
+    if(getSharedData().numPlayer==1)
+    {
+        image.loadImage("images/CaptureState.png");
+        overlayimage.loadImage("images/CaptureStateOverlay.png");
+    }
+    else
+    {
+        image.loadImage("images/CaptureState2.png");
+        overlayimage.loadImage("images/CaptureStateOverlay2.png");
+    }
     getSharedData().bParticle = true;
+    tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
+    
 }
 void CaptureState::tweenCompleted(int &id)
 {
@@ -452,15 +478,16 @@ void CaptureState::saveFace()
         string file_name = getSharedData().lastFileNames.back();
         FaceData faceData;
         faceData.setup(file_name,"face_profile/settings_a.xml");
-        faceData.save();
+        getSharedData().filesXml.addValue("FILE",faceData.save());
         faceData.setup(file_name,"face_profile/settings_b.xml");
-        faceData.save();
+        getSharedData().filesXml.addValue("FILE",faceData.save());
         faceData.setup(file_name,"face_profile/settings_c.xml");
-        faceData.save();
+        getSharedData().filesXml.addValue("FILE",faceData.save());
         faceData.setup(file_name,"face_profile/settings_d.xml");
-        faceData.save();
+        getSharedData().filesXml.addValue("FILE",faceData.save());
         faceData.setup(file_name,"face_profile/settings_e.xml");
-        faceData.save();
+        getSharedData().filesXml.addValue("FILE",faceData.save());
+        getSharedData().filesXml.saveFile(getSharedData().path_to_save+"/files.xml");
         //TO_DO load image and map the face on shoes;
         getSharedData().lastFileNames.pop_back();
         ofLog(OF_LOG_VERBOSE,"End Saving one face\n-----------------------------------------");

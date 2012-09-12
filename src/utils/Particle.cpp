@@ -3,6 +3,7 @@
 //------------------------------------------------------------------
 Particle::Particle(){
     image = NULL;
+    initTime = int(ofRandom(0,1000));
 }
 
 //------------------------------------------------------------------
@@ -31,10 +32,10 @@ void Particle::reset(){
 	}else{
 		drag  = ofRandom(0.95, 0.998);	
 	}
-    float rand = ofRandom(2,3);
+    float rand = ofRandom(0.1,sin(id/3000.0f)+0.5);
     float randW = ofRandomWidth();
-    tween.setParameters(9,easing,ofxTween::easeOut,-ofRandomWidth()-10,randW,rand*400,0);
-    tween2.setParameters(9,easing,ofxTween::easeOut,0,ofGetWidth()+ofRandomWidth()+10,1000,500+rand*400);
+    tween.setParameters(9,easing,ofxTween::easeOut,-ofRandomWidth()-10,randW,rand*600,0);
+    tween2.setParameters(9,easing,ofxTween::easeOut,0,ofGetWidth()+ofRandomWidth()+10,600,rand*600+800);
 }
 
 //------------------------------------------------------------------
@@ -114,7 +115,13 @@ void Particle::draw(){
 	}
     if(image!=NULL)
     {
-        image->draw(pos.x, pos.y);
+        glPushMatrix();
+        
+        glTranslatef(pos.x, pos.y,0);
+        glScaled(scale, scale, 1);
+        ofTexture *tex = image->getFrame(ofGetElapsedTimeMillis()-initTime);
+        tex->draw(-tex->getWidth(),-tex->getHeight());
+        glPopMatrix();
     }
     else
     {

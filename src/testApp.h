@@ -5,7 +5,8 @@
 
 #include "ofxStateMachine.h"
 #include "SharedData.h"
-
+#include "ofxImageSequence.h"
+#define NUM_SEQ 1
 class testApp : public ofBaseApp{
 public:
     void setup();
@@ -24,10 +25,10 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);		
     void resetParticles();
-
+    
     
 private:
     float appFrameRate;
     itg::ofxStateMachine<SharedData> stateMachine;    
-    
+    ofxImageSequence image[NUM_SEQ];
 };

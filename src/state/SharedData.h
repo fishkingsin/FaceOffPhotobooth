@@ -48,6 +48,7 @@ public:
     vector <string>lastFileNames;
 	string lastCode;
     ofxXmlSettings xml;
+    ofxXmlSettings filesXml;
 	ofImage loadedImage;
     ofxTrueTypeFontUC font;
     ofxAutoControlPanel panel;

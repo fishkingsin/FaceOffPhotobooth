@@ -1,5 +1,6 @@
 <DATA>
     <PREFIX>c</PREFIX>
-    <BACKGROUND>face_profile/backgroundc.png</BACKGROUND>
+    <BACKGROUND>face_profile/backgroundc.jpg</BACKGROUND>
     <OVERLAY>face_profile/overlayc.png</OVERLAY>
+    <FRAME>images/frame.png</FRAME>
 </DATA>

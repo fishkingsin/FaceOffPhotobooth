@@ -1,8 +1,8 @@
 <minFaceAreaW>
-    <val_0>159.978</val_0>
+    <val_0>211.078</val_0>
 </minFaceAreaW>
 <minFaceAreaH>
-    <val_0>159.978</val_0>
+    <val_0>216.756</val_0>
 </minFaceAreaH>
 <faceOffsetX>
     <val_0>1</val_0>
@@ -125,7 +125,7 @@
     <val_0>62.5778</val_0>
 </mouthoffset.height>
 <FaceProfile>
-    <val_0>0</val_0>
+    <val_0>4</val_0>
 </FaceProfile>
 <DrawWapper>
     <val_0>0</val_0>
@@ -350,5 +350,11 @@
     <val_0>48.3556</val_0>
 </mouthoffset.height1>
 <LogLevel>
-    <val_0>0</val_0>
+    <val_0>1</val_0>
 </LogLevel>
+<videoOffsetX>
+    <val_0>0</val_0>
+</videoOffsetX>
+<videoOffsetY>
+    <val_0>177.778</val_0>
+</videoOffsetY>

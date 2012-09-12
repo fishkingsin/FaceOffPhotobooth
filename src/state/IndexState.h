@@ -41,7 +41,7 @@ class IndexState : public Apex::ofxState<SharedData>
 public:
     void setup(){
 		ofAddListener(tween.end_E,this,&IndexState::tweenCompleted);
-		image.loadImage("images/index.jpg");
+		
 	}
 	void update(){
         getSharedData().faceTracking.minFaceAreaW = getSharedData().panel.getValueF("minFaceAreaW");
@@ -95,9 +95,11 @@ public:
     void stateExit(){
         bExit = false;
         getSharedData().bParticle = false;
+        image.clear();
 	}
 	void stateEnter()
 	{
+        image.loadImage("images/index.jpg");
         getSharedData().bParticle = true;
         bExit = false;
         tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);

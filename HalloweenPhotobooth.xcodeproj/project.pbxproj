@@ -30,6 +30,7 @@
 		250a95ba26587be85db0a353e6e1dea2 /* ofxCvColorImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ce9c7160245b19131dae61282ee6cb53 /* ofxCvColorImage.cpp */; };
 		28090deb5109115003e8f1c540f04092 /* UdpSocketWin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5928aa323f5c2690b06c837d8d036f55 /* UdpSocketWin.cpp */; };
 		510cafe035e576a4e1502d52c11243bb /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = e6def695b88ba5faaceaa93785a12fd9 /* UdpSocket.cpp */; };
+		51444F0A1600CD100034B0C6 /* ofxImageSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51444F011600CD100034B0C6 /* ofxImageSequence.cpp */; };
 		514E75A215FF442500D080AA /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 514E75A015FF442500D080AA /* Particle.cpp */; };
 		51562DAD15F79873008E5D60 /* EndState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DA915F79873008E5D60 /* EndState.cpp */; };
 		51562DAE15F79873008E5D60 /* IndexState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51562DAA15F79873008E5D60 /* IndexState.cpp */; };
@@ -304,6 +305,8 @@
 		49effcf36cf194cce0e1faabecebbc9b /* kdtree_index.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = kdtree_index.h; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/flann/kdtree_index.h; sourceTree = SOURCE_ROOT; };
 		4e95fb446a9c9c6f0de12d752f6604b3 /* OscPrintReceivedElements.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscPrintReceivedElements.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.h; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
+		51444F011600CD100034B0C6 /* ofxImageSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxImageSequence.cpp; sourceTree = "<group>"; };
+		51444F021600CD100034B0C6 /* ofxImageSequence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxImageSequence.h; sourceTree = "<group>"; };
 		514E75A015FF442500D080AA /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
 		514E75A115FF442500D080AA /* Particle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particle.h; sourceTree = "<group>"; };
 		51562DA715F7858A008E5D60 /* LicenseState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LicenseState.h; sourceTree = "<group>"; };
@@ -980,6 +983,24 @@
 			name = calib3d;
 			sourceTree = "<group>";
 		};
+		51444EE21600CD100034B0C6 /* ofxImageSequence */ = {
+			isa = PBXGroup;
+			children = (
+				51444F001600CD100034B0C6 /* src */,
+			);
+			name = ofxImageSequence;
+			path = ../../../addons/ofxImageSequence;
+			sourceTree = "<group>";
+		};
+		51444F001600CD100034B0C6 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				51444F011600CD100034B0C6 /* ofxImageSequence.cpp */,
+				51444F021600CD100034B0C6 /* ofxImageSequence.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		516DF57D15EFA4B2001F9898 /* ofxBlur */ = {
 			isa = PBXGroup;
 			children = (
@@ -1481,6 +1502,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				51444EE21600CD100034B0C6 /* ofxImageSequence */,
 				1B41315F15F6EAFE00BAE320 /* ofxTrueTypeFontUC */,
 				1B1F3ACB15F5F64C00EA6F0D /* ofxUI */,
 				1BC0074B15F59F5E005AD984 /* ofxTimer */,
@@ -1959,6 +1981,7 @@
 				51562DAF15F79873008E5D60 /* LicenseState.cpp in Sources */,
 				51562DB015F79873008E5D60 /* SelectPlayerState.cpp in Sources */,
 				514E75A215FF442500D080AA /* Particle.cpp in Sources */,
+				51444F0A1600CD100034B0C6 /* ofxImageSequence.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

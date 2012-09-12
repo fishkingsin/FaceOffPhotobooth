@@ -38,6 +38,10 @@
 #include "ofxPSBlend.h"
 #define gridRes 8
 #define MULTIPY 1
+#define POS_X 43
+#define POS_Y 53
+#define POS_W 386
+#define POS_H 501
 //#define USE_PSBLEND
 class FaceData
 {
@@ -45,7 +49,7 @@ public:
     ofImage backgroundImage;
     ofImage overlayImage;
     ofImage faceImage;
-
+    ofImage frame;
     string imageFile;
     string prefix;
     ofxGLWarper warpper;
@@ -101,6 +105,7 @@ public:
 
                 backgroundImage.loadImage(xml.getValue("BACKGROUND","background.png"));
                 overlayImage.loadImage(xml.getValue("OVERLAY","overlay.png"));
+                frame.loadImage(xml.getValue("FRAME","frame.png"));
                 warpper.setup(0,0,faceImage.width,faceImage.height);
                 warpper.load("face_profile/warpper_"+prefix+".xml");
 
@@ -117,7 +122,7 @@ public:
 #ifdef    USE_PSBLEND
 		psBlend.begin();
 #endif
-		backgroundImage.draw(0,0);
+		backgroundImage.draw(POS_X,POS_Y,POS_W,POS_H);
 		ofPushStyle();
 		ofPushMatrix();
         warpper.begin();
@@ -128,15 +133,16 @@ public:
 		ofPopStyle();
 #ifdef    USE_PSBLEND
 		psBlend.end();
-		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
 #endif
         warpper.draw();
-		overlayImage.draw(0,0);
+		overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        frame.draw(0,0);
     }
-    virtual void save()
+    string save()
     {
         ofFbo fbo;
-        fbo.allocate(overlayImage.width,overlayImage.height);
+        fbo.allocate(frame.width,frame.height);
         fbo.begin();
         ofClear(0);
         draw();
@@ -145,8 +151,9 @@ public:
         pixels.allocate(overlayImage.width,overlayImage.height,OF_IMAGE_COLOR_ALPHA);
         fbo.readToPixels(pixels);
         string subImageName = imageFile.substr(0,imageFile.length()-4);
-        ofSaveImage(pixels, subImageName+prefix+".png",OF_IMAGE_QUALITY_BEST);
-		
+        string fileName = subImageName+prefix+".png";
+        ofSaveImage(pixels,fileName ,OF_IMAGE_QUALITY_BEST);
+		return fileName;
         
     }
     void saveSetting()
@@ -178,7 +185,7 @@ public:
         ofEnableAlphaBlending();
 		ofSetColor(255);
 		
-        backgroundImage.draw(0,0);
+        backgroundImage.draw(POS_X,POS_Y,POS_W,POS_H);
 		#ifdef    USE_PSBLEND
 		psBlend.begin();
 #endif
@@ -205,13 +212,13 @@ public:
         
 #ifdef    USE_PSBLEND
 		psBlend.end();
-		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY);
+		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
 #endif
 		warpper.draw();
 		warpper2.draw();
         
-		overlayImage.draw(0,0);
-        
+		overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        frame.draw(0,0);
     }
     void saveSetting()
     {
