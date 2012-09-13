@@ -32,16 +32,16 @@
     <val_0>87.4167</val_0>
 </lefteyeROIL_H>
 <lefteyeoffset.x>
-    <val_0>-19.9111</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.x>
 <lefteyeoffset.y>
-    <val_0>-19.9111</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.y>
 <lefteyeoffset.width>
-    <val_0>34.1333</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.width>
 <lefteyeoffset.height>
-    <val_0>39.8222</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.height>
 <righteyeminFeatureArea>
     <val_0>39.25</val_0>
@@ -59,16 +59,16 @@
     <val_0>87.4167</val_0>
 </righteyeROIL_H>
 <righteyeoffset.x>
-    <val_0>-14.2222</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.x>
 <righteyeoffset.y>
-    <val_0>-14.2222</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.y>
 <righteyeoffset.width>
-    <val_0>28.4445</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.width>
 <righteyeoffset.height>
-    <val_0>34.1333</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.height>
 <noseminFeatureArea>
     <val_0>35</val_0>
@@ -113,16 +113,16 @@
     <val_0>93.0833</val_0>
 </mouthROIL_H>
 <mouthoffset.x>
-    <val_0>-54.0444</val_0>
+    <val_0>-5</val_0>
 </mouthoffset.x>
 <mouthoffset.y>
-    <val_0>-34.1333</val_0>
+    <val_0>-5</val_0>
 </mouthoffset.y>
 <mouthoffset.width>
-    <val_0>110.933</val_0>
+    <val_0>10</val_0>
 </mouthoffset.width>
 <mouthoffset.height>
-    <val_0>62.5778</val_0>
+    <val_0>10</val_0>
 </mouthoffset.height>
 <FaceProfile>
     <val_0>4</val_0>
@@ -149,16 +149,16 @@
     <val_0>66.1667</val_0>
 </lefteyeROIL_H0>
 <lefteyeoffset.x0>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.x0>
 <lefteyeoffset.y0>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.y0>
 <lefteyeoffset.width0>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.width0>
 <lefteyeoffset.height0>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.height0>
 <righteyeminFeatureArea0>
     <val_0>40.6667</val_0>
@@ -176,16 +176,16 @@
     <val_0>66.1667</val_0>
 </righteyeROIL_H0>
 <righteyeoffset.x0>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.x0>
 <righteyeoffset.y0>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.y0>
 <righteyeoffset.width0>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.width0>
 <righteyeoffset.height0>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.height0>
 <noseminFeatureArea0>
     <val_0>25.0833</val_0>
@@ -230,16 +230,16 @@
     <val_0>91.6667</val_0>
 </mouthROIL_H0>
 <mouthoffset.x0>
-    <val_0>-19.9111</val_0>
+    <val_0>-5</val_0>
 </mouthoffset.x0>
 <mouthoffset.y0>
-    <val_0>-11.3778</val_0>
+    <val_0>11.3778</val_0>
 </mouthoffset.y0>
 <mouthoffset.width0>
-    <val_0>39.8222</val_0>
+    <val_0>10</val_0>
 </mouthoffset.width0>
 <mouthoffset.height0>
-    <val_0>28.4445</val_0>
+    <val_0>31.2889</val_0>
 </mouthoffset.height0>
 <lefteyeminFeatureArea1>
     <val_0>35</val_0>
@@ -257,16 +257,16 @@
     <val_0>74.6667</val_0>
 </lefteyeROIL_H1>
 <lefteyeoffset.x1>
-    <val_0>-11.3778</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.x1>
 <lefteyeoffset.y1>
-    <val_0>-8.53334</val_0>
+    <val_0>-20</val_0>
 </lefteyeoffset.y1>
 <lefteyeoffset.width1>
-    <val_0>19.9111</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.width1>
 <lefteyeoffset.height1>
-    <val_0>19.9111</val_0>
+    <val_0>40</val_0>
 </lefteyeoffset.height1>
 <righteyeminFeatureArea1>
     <val_0>60.5</val_0>
@@ -284,16 +284,16 @@
     <val_0>73.25</val_0>
 </righteyeROIL_H1>
 <righteyeoffset.x1>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.x1>
 <righteyeoffset.y1>
-    <val_0>0</val_0>
+    <val_0>-20</val_0>
 </righteyeoffset.y1>
 <righteyeoffset.width1>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.width1>
 <righteyeoffset.height1>
-    <val_0>0</val_0>
+    <val_0>40</val_0>
 </righteyeoffset.height1>
 <noseminFeatureArea1>
     <val_0>39.25</val_0>
@@ -338,19 +338,19 @@
     <val_0>73.25</val_0>
 </mouthROIL_H1>
 <mouthoffset.x1>
-    <val_0>-48.3556</val_0>
+    <val_0>-5</val_0>
 </mouthoffset.x1>
 <mouthoffset.y1>
-    <val_0>-31.2889</val_0>
+    <val_0>-5</val_0>
 </mouthoffset.y1>
 <mouthoffset.width1>
-    <val_0>108.089</val_0>
+    <val_0>10</val_0>
 </mouthoffset.width1>
 <mouthoffset.height1>
-    <val_0>48.3556</val_0>
+    <val_0>8.53333</val_0>
 </mouthoffset.height1>
 <LogLevel>
-    <val_0>1</val_0>
+    <val_0>0</val_0>
 </LogLevel>
 <videoOffsetX>
     <val_0>0</val_0>

@@ -30,7 +30,7 @@ class Particle{
 		float scale;
 		
 		particleMode mode;
-    int initTime;
+    float initTime;
     ofxTween tween;
     ofxTween tween2;
     ofxEasingCubic 	easing;

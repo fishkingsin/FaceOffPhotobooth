@@ -267,7 +267,7 @@ void CaptureState::draw(){
             ofPushStyle();
             ofSetColor(0);
             glPushMatrix();
-            glTranslatef(ofGetWidth()-64,ofGetHeight()-64,0);
+            glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
             glPushMatrix();
             glScalef(0.5,0.5,1);
             getSharedData().font.drawString(ofToString(8-(diff),0), - 256,0);
@@ -282,8 +282,8 @@ void CaptureState::draw(){
             }
         }
     }
-    
-	countDown.draw(ofGetWidth()/2-110,0, 200,200);
+    if(showMask)mask.draw(0,0,mask.width*getSharedData().wRatio,mask.height*getSharedData().hRatio);
+	countDown.draw(ofGetWidth()/2-100,50, 200,200);
     
     ofPushStyle();
     ofEnableAlphaBlending();
@@ -297,6 +297,10 @@ void CaptureState::draw(){
             getSharedData().p[i].draw();
         }
     }
+    if(ofGetLogLevel()==OF_LOG_VERBOSE)
+    {
+        getSharedData().faceTracking.draw();
+    }
 }
 
 void CaptureState::stateExit() {
@@ -308,9 +312,14 @@ void CaptureState::stateExit() {
     overlayimage.clear();
     timeCount = 0;
     countDown.stop();
+    capturedScreen.begin();
+    ofClear(0);
+    capturedScreen.end();
+    showMask = false;
 }
 void CaptureState::stateEnter()
 {
+    showMask =  false;
     x = DOU1_X*ofGetWidth();
     y = SINGLE_Y*ofGetHeight();
     w = SINGLE_W*ofGetWidth();
@@ -325,6 +334,7 @@ void CaptureState::stateEnter()
     //    keyPressed(OF_KEY_BACKSPACE);
     lastCapture.clear();
     bBox2D = false;
+    mask.loadImage("images/captureStateMask.jpg");
     if(getSharedData().numPlayer==1)
     {
         image.loadImage("images/CaptureState.png");
@@ -366,6 +376,7 @@ void CaptureState::keyPressed(int key){
             
             if(bBox2D)
             {
+                showMask = false;
                 //TO-DO add clear box2d body and patricle when add new set of face feature
                 //****************************************
 				box2d.clear();
@@ -392,7 +403,14 @@ void CaptureState::keyPressed(int key){
                             float y = rect.y+(feature[j]->rect.y*scaleY);
                             float w = feature[j]->rect.width*scaleX;
                             float h = feature[j]->rect.height*scaleY;
-                            p.setup(box2d.box2d[i].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5);
+                            if(x<camW*0.5)
+                            {
+                                p.setup(box2d.box2d[0].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5);
+                            }
+                            else
+                            {
+                               p.setup(box2d.box2d[1].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5); 
+                            }
                             p.setupTheCustomData(feature[j],&getSharedData().faceTracking.alphaMaskShader,scaleX,scaleY);
                             box2d.addParticle( p);
                         }
@@ -410,8 +428,10 @@ void CaptureState::keyPressed(int key){
             if(!bBox2D){
                 
                 countDown.start();
+                showMask = true;
             }
 			else {
+                
                 getSharedData().bParticle = true;
                 for(int i = 0; i < getSharedData().p.size(); i++){
                     getSharedData().p[i].reset();

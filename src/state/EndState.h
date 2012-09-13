@@ -64,25 +64,26 @@ public:
 		ofEnableAlphaBlending();
         ofSetColor(255);
 		image.draw(0,0,ofGetWidth(),ofGetHeight());
-        ofPushStyle();
-        ofPushStyle();
-        ofSetColor(0);
-        glPushMatrix();
-        glTranslatef(ofGetWidth()-64,ofGetHeight()-64,0);
-        glPushMatrix();
-        glScalef(0.5,0.5,1);
-        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0), - 128,0);
-        glPopMatrix();
-        glPopMatrix();
         ofPopStyle();
+
+//        ofPushStyle();
+//        ofSetColor(0);
+//        glPushMatrix();
+//        glTranslatef(ofGetWidth()-64,ofGetHeight()-64,0);
+//        glPushMatrix();
+//        glScalef(0.5,0.5,1);
+//        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0), - 128,0);
+//        glPopMatrix();
+//        glPopMatrix();
+//        ofPopStyle();
 //        ofSetColor(253,127,2);
 //        glPushMatrix();
 //        glScalef(0.5,0.5,1);
 //        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0),ofGetWidth() - 64,128);
 //        glPopMatrix();
+        ofPushStyle();
         ofSetColor(0);
 		getSharedData().font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
-        ofPopStyle();
 		ofPopStyle();
 		
 		

@@ -19,8 +19,11 @@ void testApp::setup(){
 	{
 		if(xml.pushTag("DATA"))
 		{
-            int width = xml.getValue("WIDTH", 1280);    
-            int height = xml.getValue("HEIGHT", 720);
+            stateMachine.getSharedData().bDebug = xml.getValue("DEBUG", true);   
+            float width = xml.getValue("WIDTH", 1280);    
+            float height = xml.getValue("HEIGHT", 720);
+            stateMachine.getSharedData(). wRatio = width/1920;
+            stateMachine.getSharedData(). hRatio = height/1080;
             ofSetFullscreen(xml.getValue("FULLSCREEN", 0));
             ofSetWindowShape(width, height);
 			stateMachine.getSharedData().path_to_save = xml.getValue("CAPTURE_PATH", "./captures");
@@ -88,16 +91,22 @@ void testApp::setup(){
 	stateMachine.changeState(xml.getValue("DATA:INIT_STATE", "IndexState"));
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
+    if(!stateMachine.getSharedData().bDebug)
+    {
+        stateMachine.getSharedData().panel.unregisterKeyboardEvent();
+    }
     stateMachine.getSharedData().numPlayer = 1;
     for(int i = 0 ; i < NUM_SEQ ;i++)
     {
         image[i].loadSequence("images/bat/bat_", "png", 0, 154, 5);
+        image[i].setFrameRate(25);
     }
     
     int num = 3000;
     
 	stateMachine.getSharedData().p.assign(num, Particle());
     resetParticles();
+    
     
 }
 
@@ -123,6 +132,8 @@ void testApp::exit()
 }
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+    if(stateMachine.getSharedData().bDebug)
+    {
     switch(key)
     {
         case OF_KEY_F1:
@@ -146,6 +157,7 @@ void testApp::keyPressed(int key){
 		case 's':
             stateMachine.getSharedData().panel.saveSettings();
             break;
+    }
     }
 }
 

@@ -69,6 +69,7 @@ public:
     bool bBox2D;
     bool bCapture;
     bool bSaveFace;
+    bool showMask;
     CountDown countDown;
     ofImage lastCapture;
 	
@@ -76,7 +77,7 @@ public:
 	float ratio;
 	float screenWidth;
 		float screenHeight;
-	ofImage image,overlayimage;
+	ofImage image,overlayimage,mask;
     int timeCount;
 
     ofxTween tween;

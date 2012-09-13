@@ -47,14 +47,23 @@ public:
 		//float dim = 16; 
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
-		gui = new ofxUICanvas(getSharedData().xml.getValue("WIDTH", 1920)/2-(525+687)*0.5, getSharedData().xml.getValue("HEIGHT", 1080)/2, 525+687,555);
+
+		gui = new ofxUICanvas(getSharedData(). wRatio*302, getSharedData(). hRatio*353,
+                              getSharedData(). wRatio*525, getSharedData(). hRatio*550);
+        gui2 = new ofxUICanvas(getSharedData(). wRatio*945, getSharedData(). hRatio*372,
+                               getSharedData(). wRatio*687, getSharedData(). hRatio*555);
 		
-		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(525,550, true, "GUI/images/1player.png","ONE_PLAYER"));
-		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(687,555, true, "GUI/images/2player.png","TWO_PLAYER"));
+		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(getSharedData(). wRatio*525,
+                                                                        getSharedData(). hRatio*550, true, "GUI/images/1player.png","ONE_PLAYER"));
+		button2 = (ofxUIButton*)gui2->addWidgetRight(new ofxUIImageButton(getSharedData(). wRatio*687,
+                                                                          getSharedData(). hRatio*555, true, "GUI/images/2player.png","TWO_PLAYER"));
 		//button->setVidible(true);
 		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
 		gui->setDrawBack(false);
 		gui->setVisible(false);
+        ofAddListener(gui2->newGUIEvent,this,&SelectPlayerState::guiEvent);
+		gui2->setDrawBack(false);
+		gui2->setVisible(false);
         ofAddListener(tween.end_E,this,&SelectPlayerState::tweenCompleted);
 	}
 	void guiEvent(ofxUIEventArgs &e)
@@ -123,6 +132,7 @@ public:
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
 		gui->setVisible(false);
+        gui2->setVisible(false);
         image.clear();
         
 	}
@@ -133,6 +143,7 @@ public:
         button1->drawFillHighlight();
         button2->drawFillHighlight();
 		gui->setVisible(true);
+        gui2->setVisible(true);
         bExit = false;
         tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
         getSharedData().bParticle = true;
@@ -200,6 +211,7 @@ public:
     
 	ofImage image ;
 	ofxUICanvas *gui; 
+    ofxUICanvas *gui2; 
     string getName(){ return "SelectPlayerState";}
     
 	ofxUIButton  *button1;

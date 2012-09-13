@@ -6,6 +6,6 @@ int main() {
 #ifdef TARGET_OSX
     window.setGlutDisplayString( "rgb double depth alpha samples>=4");
 #endif
-	ofSetupOpenGL(&window, 1920,1080, OF_WINDOW);
+	ofSetupOpenGL(&window, 1920,1080, OF_GAME_MODE);
 	ofRunApp(new testApp());
 }

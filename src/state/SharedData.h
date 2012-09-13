@@ -43,7 +43,9 @@
 class SharedData
 {
 public:
+    bool bDebug;
     int counter,numDigi;
+    float wRatio,hRatio;
     string path_to_save;
     vector <string>lastFileNames;
 	string lastCode;
