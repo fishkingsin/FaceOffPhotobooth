@@ -32,6 +32,7 @@
 
 #include "CaptureState.h"
 FaceFeature *feature[4];
+static int timeremain = 20;
 string CaptureState::getName()
 {
 	return "CaptureState";
@@ -189,7 +190,7 @@ void CaptureState::update(){
 //--------------------------------------------------------------
 void CaptureState::draw(){
     capturedScreen.begin();
-	ofClearAlpha();
+	ofClear(0);
     if(!bBox2D)
     {
         getSharedData().faceTracking.draw();
@@ -260,7 +261,7 @@ void CaptureState::draw(){
     {
         int diff = ofGetElapsedTimef()-timeCount;
         
-        if(diff<=8)
+        if(diff<timeremain)
         {
             if(!bBox2D)
             {
@@ -270,16 +271,17 @@ void CaptureState::draw(){
             glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
             glPushMatrix();
             glScalef(0.5,0.5,1);
-            getSharedData().font.drawString(ofToString(8-(diff),0), - 256,0);
+            getSharedData().font.drawString(ofToString(timeremain-(diff),0), - 256,0);
             glPopMatrix();
             glPopMatrix();
             ofPopStyle();
             }
-            if (diff==8)
-            {
-                keyPressed('C');
-                
-            }
+            
+        }
+        else if (diff==timeremain)
+        {
+            keyPressed('C');
+            
         }
     }
     if(showMask)mask.draw(0,0,mask.width*getSharedData().wRatio,mask.height*getSharedData().hRatio);
@@ -312,9 +314,7 @@ void CaptureState::stateExit() {
     overlayimage.clear();
     timeCount = 0;
     countDown.stop();
-    capturedScreen.begin();
-    ofClear(0);
-    capturedScreen.end();
+    
     showMask = false;
 }
 void CaptureState::stateEnter()
@@ -347,7 +347,9 @@ void CaptureState::stateEnter()
     }
     getSharedData().bParticle = true;
     tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
-    
+    capturedScreen.begin();
+    ofClear(0);
+    capturedScreen.end();
 }
 void CaptureState::tweenCompleted(int &id)
 {

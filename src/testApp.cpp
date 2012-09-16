@@ -99,7 +99,7 @@ void testApp::setup(){
     for(int i = 0 ; i < NUM_SEQ ;i++)
     {
         image[i].loadSequence("images/bat/bat_", "png", 0, 154, 5);
-        image[i].setFrameRate(25);
+        image[i].setFrameRate(60);
     }
     
     int num = 3000;

@@ -48,7 +48,7 @@ public:
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
 
-		gui = new ofxUICanvas(getSharedData(). wRatio*302, getSharedData(). hRatio*353,
+		gui = new ofxUICanvas(getSharedData(). wRatio*282, getSharedData(). hRatio*353,
                               getSharedData(). wRatio*525, getSharedData(). hRatio*550);
         gui2 = new ofxUICanvas(getSharedData(). wRatio*945, getSharedData(). hRatio*372,
                                getSharedData(). wRatio*687, getSharedData(). hRatio*555);
@@ -109,10 +109,6 @@ public:
 		ofEnableAlphaBlending();
 		ofSetColor(255);
 		image.draw(0,0,ofGetWidth(),ofGetHeight());
-        
-		ofPopStyle();
-		gui->draw();
-        ofPushStyle();
         ofEnableAlphaBlending();
         ofFill();
         ofSetColor(0,0,0,tween.update());
@@ -162,6 +158,7 @@ public:
                     getSharedData().p[i].reset();
                 }
                 gui->setVisible(false);
+                gui2->setVisible(false);
             tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
                 break;
             case OF_KEY_BACKSPACE:

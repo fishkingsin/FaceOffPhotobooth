@@ -1573,9 +1573,9 @@
 			isa = PBXGroup;
 			children = (
 				51D11DB515FA2F520066B8B7 /* config.xml */,
+				1B84F1EB15F0C11F002B8AD4 /* settings.xml */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
-				1B84F1EB15F0C11F002B8AD4 /* settings.xml */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,

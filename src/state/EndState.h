@@ -82,7 +82,7 @@ public:
 //        getSharedData().font.drawString(ofToString(9-(ofGetElapsedTimef()-timeCount),0),ofGetWidth() - 64,128);
 //        glPopMatrix();
         ofPushStyle();
-        ofSetColor(0);
+        ofSetColor(253,127,2);
 		getSharedData().font.drawString(getSharedData().lastCode,strPos.x,strPos.y);
 		ofPopStyle();
 		
