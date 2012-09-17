@@ -271,7 +271,7 @@ void CaptureState::draw(){
             glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
             glPushMatrix();
             glScalef(0.5,0.5,1);
-            getSharedData().font.drawString(ofToString(timeremain-(diff),0), - 256,0);
+            getSharedData().font.drawString("Time Remain : "ofToString(timeremain-(diff),0), - 256,0);
             glPopMatrix();
             glPopMatrix();
             ofPopStyle();
