@@ -120,6 +120,8 @@ public:
                 getSharedData().p[i].draw();
             }
         }
+//        gui->draw();
+//        gui2->draw();
         
 	}
 	void mouseMoved(int x, int y) {}
@@ -127,8 +129,8 @@ public:
     void mousePressed(int x, int y, int button) {}
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
-		gui->setVisible(false);
-        gui2->setVisible(false);
+        gui->disable();
+        gui2->disable();
         image.clear();
         
 	}
@@ -136,10 +138,9 @@ public:
 	{
         timeCount = ofGetElapsedTimef();
         image.loadImage("images/selectplayer.jpg");
-        button1->drawFillHighlight();
-        button2->drawFillHighlight();
-		gui->setVisible(true);
-        gui2->setVisible(true);
+        gui->enable();
+        gui2->enable();
+
         bExit = false;
         tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
         getSharedData().bParticle = true;

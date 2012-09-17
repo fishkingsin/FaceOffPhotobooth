@@ -104,7 +104,7 @@ void CaptureState::update(){
         }
         return;
     }
-
+    
     if(!bBox2D)
     {
         videoOffset.x = getSharedData().panel.getValueF("videoOffsetX");
@@ -225,7 +225,7 @@ void CaptureState::draw(){
             case 2:
             {
                 
-
+                
                 capturedScreen.getTextureReference().drawSubsection(x2+w, y, -w, h, 0, 0, camW*0.5, camH);
                 
                 capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, camW*0.5, 0, camW*0.5, camH);
@@ -265,27 +265,49 @@ void CaptureState::draw(){
         {
             if(!bBox2D)
             {
-            ofPushStyle();
-            ofSetColor(0);
-            glPushMatrix();
-            glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
-            glPushMatrix();
-            glScalef(0.5,0.5,1);
-            getSharedData().font.drawString("Time Remain : "+ofToString(timeremain-(diff),0), - 256,0);
-            glPopMatrix();
-            glPopMatrix();
-            ofPopStyle();
+                ofPushStyle();
+                ofSetColor(0);
+                glPushMatrix();
+                {
+                    glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
+                    glPushMatrix();
+                    {
+                        glScalef(0.5,0.5,1);
+                        getSharedData().font.drawString(ofToString(timeremain-(diff),0), - 256,0);
+                    }
+                    glPopMatrix();
+                    
+//                    glPushMatrix();
+//                    {
+//                        glTranslatef(-350,0,0);
+//                        glScalef(0.15f,0.15f,1.0f);
+//                        getSharedData().font.drawString("Time Remain : ", 0,0);
+//                    }
+                    
+                    glPopMatrix();
+                }
+                glPopMatrix();
+                ofPopStyle();
             }
             
         }
         else if (diff==timeremain)
         {
+            overlayimage.clear();
+            if(getSharedData().numPlayer==1)
+            {
+                
+                overlayimage.loadImage("images/CaptureStateOverlay_b.png");
+            }else
+            {
+                overlayimage.loadImage("images/CaptureStateOverlay2_b.png");                
+            }
             keyPressed('C');
             
         }
     }
     if(showMask)mask.draw(0,0,mask.width*getSharedData().wRatio,mask.height*getSharedData().hRatio);
-	countDown.draw(ofGetWidth()/2-100,50, 200,200);
+	countDown.draw(ofGetWidth()/2-70,50, 200,200);
     
     ofPushStyle();
     ofEnableAlphaBlending();
@@ -411,7 +433,7 @@ void CaptureState::keyPressed(int key){
                             }
                             else
                             {
-                               p.setup(box2d.box2d[1].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5); 
+                                p.setup(box2d.box2d[1].getWorld(),x+(w*0.5),y+(h*0.5),w*0.5*0.5); 
                             }
                             p.setupTheCustomData(feature[j],&getSharedData().faceTracking.alphaMaskShader,scaleX,scaleY);
                             box2d.addParticle( p);
