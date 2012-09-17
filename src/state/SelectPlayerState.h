@@ -48,22 +48,23 @@ public:
 		//float xInit = OFX_UI_GLOBAL_WIDGET_SPACING; 
 		//float length = 255-xInit; 
 
-		gui = new ofxUICanvas(getSharedData(). wRatio*282, getSharedData(). hRatio*353,
-                              getSharedData(). wRatio*525, getSharedData(). hRatio*550);
-        gui2 = new ofxUICanvas(getSharedData(). wRatio*945, getSharedData(). hRatio*372,
-                               getSharedData(). wRatio*687, getSharedData(). hRatio*555);
-		
-		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(getSharedData(). wRatio*525,
-                                                                        getSharedData(). hRatio*550, true, "GUI/images/1player.png","ONE_PLAYER"));
-		button2 = (ofxUIButton*)gui2->addWidgetRight(new ofxUIImageButton(getSharedData(). wRatio*687,
-                                                                          getSharedData(). hRatio*555, true, "GUI/images/2player.png","TWO_PLAYER"));
+		gui = new ofxUICanvas(0,0,getSharedData(). wRatio*1920, getSharedData(). hRatio*1080);
+//                              getSharedData(). wRatio*282, getSharedData(). hRatio*353,
+//                              getSharedData(). wRatio*525, getSharedData(). hRatio*550);
+//        gui2 = new ofxUICanvas(getSharedData(). wRatio*945, getSharedData(). hRatio*372,
+//                               getSharedData(). wRatio*687, getSharedData(). hRatio*555);
+//		gui2 = new ofxUICanvas(getSharedData(). wRatio*960,0,getSharedData(). wRatio*960, getSharedData(). hRatio*1080);		
+		button1 = (ofxUIButton*)gui->addWidgetDown(new ofxUIImageButton(getSharedData(). wRatio*960,
+                                                                        getSharedData(). hRatio*1080, true, "GUI/images/1player.png","ONE_PLAYER"));
+		button2 = (ofxUIButton*)gui->addWidgetRight(new ofxUIImageButton(getSharedData(). wRatio*960,
+                                                                          getSharedData(). hRatio*1080, true, "GUI/images/2player.png","TWO_PLAYER"));
 		//button->setVidible(true);
 		ofAddListener(gui->newGUIEvent,this,&SelectPlayerState::guiEvent);
 		gui->setDrawBack(false);
 		gui->setVisible(false);
-        ofAddListener(gui2->newGUIEvent,this,&SelectPlayerState::guiEvent);
-		gui2->setDrawBack(false);
-		gui2->setVisible(false);
+//        ofAddListener(gui2->newGUIEvent,this,&SelectPlayerState::guiEvent);
+//		gui2->setDrawBack(false);
+//		gui2->setVisible(false);
         ofAddListener(tween.end_E,this,&SelectPlayerState::tweenCompleted);
 	}
 	void guiEvent(ofxUIEventArgs &e)
@@ -130,7 +131,7 @@ public:
     void mouseReleased(int x, int y, int button) {}
     void stateExit(){
         gui->disable();
-        gui2->disable();
+//        gui2->disable();
         image.clear();
         
 	}
@@ -139,7 +140,7 @@ public:
         timeCount = ofGetElapsedTimef();
         image.loadImage("images/selectplayer.jpg");
         gui->enable();
-        gui2->enable();
+//        gui2->enable();
 
         bExit = false;
         tween.setParameters(STATE_ENTER,easing,ofxTween::easeIn,255,0,1000,0);
@@ -159,7 +160,7 @@ public:
                     getSharedData().p[i].reset();
                 }
                 gui->setVisible(false);
-                gui2->setVisible(false);
+//                gui2->setVisible(false);
             tween.setParameters(key,easing,ofxTween::easeOut,0,255,1000,0);
                 break;
             case OF_KEY_BACKSPACE:
@@ -209,7 +210,7 @@ public:
     
 	ofImage image ;
 	ofxUICanvas *gui; 
-    ofxUICanvas *gui2; 
+//    ofxUICanvas *gui2; 
     string getName(){ return "SelectPlayerState";}
     
 	ofxUIButton  *button1;
