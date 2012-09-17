@@ -138,6 +138,16 @@ public:
         warpper.draw();
 		overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
         frame.draw(0,0);
+		if(ofGetLogLevel()==OF_LOG_VERBOSE)
+		{
+			warpper.begin();
+			ofPushStyle();
+			ofNoFill();
+			ofSetColor(255,0,255);
+			ofRect(0,0,faceImage.width,faceImage.height);
+			ofPopStyle();
+			warpper.end();
+		}
     }
     string save()
     {
@@ -219,6 +229,26 @@ public:
         
 		overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
         frame.draw(0,0);
+		
+		if(ofGetLogLevel()==OF_LOG_VERBOSE)
+		{
+			warpper.begin();
+			ofPushStyle();
+			ofNoFill();
+			ofSetColor(255,0,255);
+			ofRect(0,0,faceImage.width,faceImage.height);
+			ofPopStyle();
+			warpper.end();
+			
+			warpper2.begin();
+			ofPushStyle();
+			ofNoFill();
+			ofSetColor(255,0,255);
+			ofRect(0,0,faceImage2.width,faceImage2.height);
+			ofPopStyle();
+			warpper2.end();
+			
+		}
     }
     void saveSetting()
     {
