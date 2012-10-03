@@ -6,14 +6,30 @@
 #include "EndState.h"
 #include "LicenseState.h"
 const static string settingFileName = "config.xml";
+//#define TEST_COUNTER
 //--------------------------------------------------------------
 void testApp::setup(){
+#ifdef TEST_COUNTER
+    ofSetLogLevel(OF_LOG_SILENT);
+    cout << "Start test Count 10000" << endl;
+    cout << "--------------------------------------------------------------" << endl;
+
+    for(int i = 0 ; i < 10000 ; i++)
+    {
+        stateMachine.getSharedData().load();
+        cout << "Count = "<< stateMachine.getSharedData().counter <<endl;
+        stateMachine.getSharedData().counter+=1;
+        stateMachine.getSharedData().save();
+	}
+    cout << "End test Count 10000" << endl;
+    cout << "--------------------------------------------------------------" << endl;
+
+    std::exit(0);
+#endif
     ofEnableSmoothing();
 	ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     glDisable(GL_DEPTH_TEST);
-    stateMachine.getSharedData().counter = 0;
-	stateMachine.getSharedData().load();
     ofxXmlSettings xml  = stateMachine.getSharedData().xml;
     if(xml.loadFile(settingFileName))
 	{
@@ -22,6 +38,9 @@ void testApp::setup(){
             stateMachine.getSharedData().bDebug = xml.getValue("DEBUG", true);   
             float width = xml.getValue("WIDTH", 1280);    
             float height = xml.getValue("HEIGHT", 720);
+            sndPlayer.loadSound(xml.getValue("SOUND_PATH", "sounds/Zone 5 - Door Creak, scream and witchly laugh.wav"));
+            sndPlayer.setLoop(true);
+            sndPlayer.play();
             stateMachine.getSharedData(). wRatio = width/1920;
             stateMachine.getSharedData(). hRatio = height/1080;
             ofSetFullscreen(xml.getValue("FULLSCREEN", 0));
@@ -153,6 +172,9 @@ void testApp::keyPressed(int key){
             break;
         case OF_KEY_F12:
             stateMachine.changeState("LicenseState");
+            break;
+            case 'g':
+
             break;
 		case 's':
             stateMachine.getSharedData().panel.saveSettings();

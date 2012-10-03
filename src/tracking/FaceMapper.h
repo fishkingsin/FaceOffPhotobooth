@@ -36,6 +36,8 @@
 #include "ofxXmlSettings.h"
 #include "ofxGLWarper.h"
 #include "ofxPSBlend.h"
+#include "SharedData.h"
+#include "ofxOpenCv.h"
 #define gridRes 8
 #define MULTIPY 1
 #define POS_X 43
@@ -50,8 +52,11 @@ public:
     ofImage overlayImage;
     ofImage faceImage;
     ofImage frame;
+    ofImage blendImage;
+    ofColor color;
     string imageFile;
     string prefix;
+    bool bGrayScale;
     ofxGLWarper warpper;
 #ifdef    USE_PSBLEND
 	ofxPSBlend psBlend;
@@ -73,13 +78,6 @@ public:
         backgroundImage.clear();
         overlayImage.clear();
         faceImage.clear();
-		if(!isSetup)
-		{
-#ifdef    USE_PSBLEND
-			psBlend.setup(overlayImage.getWidth(), overlayImage.getHeight());
-#endif
-			isSetup = true;
-        }
 		imageFile = img_fn;
         ofxXmlSettings xml;
         
@@ -102,39 +100,86 @@ public:
             if(xml.pushTag("DATA"))
             {
                 prefix = xml.getValue("PREFIX","a");
-
+                
                 backgroundImage.loadImage(xml.getValue("BACKGROUND","background.png"));
                 overlayImage.loadImage(xml.getValue("OVERLAY","overlay.png"));
+                //                blendImage.loadImage(xml.getValue("BLEND","blend.png"));
                 frame.loadImage(xml.getValue("FRAME","frame.png"));
+                blendImage.loadImage(xml.getValue("BLEND","blend.png"));
                 warpper.setup(0,0,faceImage.width,faceImage.height);
                 warpper.load("face_profile/warpper_"+prefix+".xml");
-
+                color.r = xml.getValue("RED",255);
+                color.g = xml.getValue("GREEN",255);
+                color.b = xml.getValue("BLUE",255);
+                color.a = xml.getValue("ALPHA",255);
+                bGrayScale = xml.getValue("GRAYSCALE",false);
+                if(bGrayScale)
+                {
+                    ofxCvColorImage colorImg;
+                    ofxCvGrayscaleImage grayImage;
+                    colorImg.allocate(faceImage.getWidth(),faceImage.getHeight());
+                    grayImage.allocate(faceImage.getWidth(),faceImage.getHeight());
+                    colorImg.setFromPixels(faceImage.getPixels(),faceImage.getWidth(),faceImage.getHeight());
+                    grayImage = colorImg;
+                    faceImage.setFromPixels(grayImage.getPixels(),grayImage.getWidth(),grayImage.getHeight(),OF_IMAGE_GRAYSCALE);
+                    //                    faceImage.setFromPixels();
+                }
+                
+                
                 xml.popTag();
             }
+            if(!isSetup)
+            {
+#ifdef    USE_PSBLEND
+                psBlend.setup(backgroundImage.getWidth(), backgroundImage.getHeight());
+#endif
+                isSetup = true;
+            }
+            
             //save();
         }
-
+        
     }
     virtual void draw()
     {
 		ofSetColor(255);
         ofEnableAlphaBlending();
+        backgroundImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
 #ifdef    USE_PSBLEND
-		psBlend.begin();
+        //if(blendImage.bAllocated())		
+        psBlend.begin();
 #endif
-		backgroundImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
 		ofPushStyle();
-		ofPushMatrix();
-        warpper.begin();
-        faceImage.draw(0,0);
-        warpper.end();
-		
-		ofPopMatrix();
+        {
+            ofPushMatrix();
+            warpper.begin();
+            //        ofSetColor(color);
+            faceImage.draw(0,0);
+            warpper.end();
+            
+            ofPopMatrix();
+        }
 		ofPopStyle();
 #ifdef    USE_PSBLEND
-		psBlend.end();
-		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
+        //        if(blendImage.bAllocated())
+        {
+            psBlend.end();
+            psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
+        }
 #endif
+        
+        ofPushStyle();
+        if(bGrayScale )        ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+        if(blendImage.bAllocated())blendImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
+        ofSetColor(color);
+        ofFill();
+        ofRect(POS_X,POS_Y,POS_W,POS_H);
+        ofPopStyle();
+        overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
         warpper.draw();
 		overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
         frame.draw(0,0);
@@ -155,6 +200,11 @@ public:
         fbo.allocate(frame.width,frame.height);
         fbo.begin();
         ofClear(0);
+        ofPushStyle();
+        ofSetColor(0);
+        ofFill();
+        ofRect(0,0,overlayImage.width,overlayImage.height);
+        ofPopStyle();
         draw();
         fbo.end();
         ofPixels pixels;		
@@ -188,42 +238,81 @@ public:
         faceImage2.loadImage(img_fn2);
         warpper2.setup(0,0,faceImage2.width,faceImage2.height);
         warpper2.load("face_profile/warpper2_"+prefix+".xml");
+        if(bGrayScale)
+        {
+            
+            ofxCvColorImage colorImg;
+            ofxCvGrayscaleImage grayImage;
+            colorImg.allocate(faceImage2.getWidth(),faceImage2.getHeight());
+            grayImage.allocate(faceImage2.getWidth(),faceImage2.getHeight());
+            colorImg.setFromPixels(faceImage2.getPixels(),faceImage2.getWidth(),faceImage2.getHeight());
+            grayImage = colorImg;
+            faceImage2.setFromPixels(grayImage.getPixels(),grayImage.getWidth(),grayImage.getHeight(),OF_IMAGE_GRAYSCALE);
+        }
+        
         
     }
     void draw()
     {
         ofEnableAlphaBlending();
 		ofSetColor(255);
-		
+        
         backgroundImage.draw(POS_X,POS_Y,POS_W,POS_H);
-		#ifdef    USE_PSBLEND
-		psBlend.begin();
+        
+#ifdef    USE_PSBLEND
+        //		if(blendImage.bAllocated())
+        {
+            psBlend.begin();
+        }
 #endif
 		ofPushStyle();
-		ofPushMatrix();
-		{
-			warpper.begin();
-			faceImage.draw(0,0);
-			warpper.end();
-		}
-		ofPopMatrix();
+        {
+            ofPushMatrix();
+            {
+                warpper.begin();
+                //                    ofSetColor(color);
+                faceImage.draw(0,0);
+                warpper.end();
+            }
+            ofPopMatrix();
+        }
 		ofPopStyle();
-
+        
 		ofPushStyle();
-		ofPushMatrix();
-		{
-			warpper2.begin();
-			faceImage2.draw(0,0);
-			warpper2.end();
-			
-		}
-        ofPopMatrix();
+        {
+            ofPushMatrix();
+            {
+                warpper2.begin();
+                //                    ofSetColor(color);
+                faceImage2.draw(0,0);
+                warpper2.end();
+                
+            }
+            ofPopMatrix();
+        }
 		ofPopStyle();
         
 #ifdef    USE_PSBLEND
-		psBlend.end();
-		psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
+        //		if(blendImage.bAllocated())
+        {
+            psBlend.end();
+            psBlend.draw(backgroundImage.getTextureReference(), MULTIPY,POS_X,POS_Y,POS_W,POS_H);
+        }
 #endif
+        if(bGrayScale )        ofEnableBlendMode(OF_BLENDMODE_MULTIPLY);
+        if(blendImage.bAllocated())blendImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
+        
+        ofPushStyle();
+        
+        //        ofEnableAlphaBlending();
+        ofSetColor(color);
+        ofFill();
+        ofRect(POS_X,POS_Y,POS_W,POS_H);
+        ofPopStyle();
+                if(bGrayScale )ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+        overlayImage.draw(POS_X,POS_Y,POS_W,POS_H);
+        
 		warpper.draw();
 		warpper2.draw();
         

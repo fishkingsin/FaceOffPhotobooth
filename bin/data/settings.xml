@@ -1,8 +1,8 @@
 <minFaceAreaW>
-    <val_0>150</val_0>
+    <val_0>80.4889</val_0>
 </minFaceAreaW>
 <minFaceAreaH>
-    <val_0>150</val_0>
+    <val_0>77.65</val_0>
 </minFaceAreaH>
 <faceOffsetX>
     <val_0>1</val_0>
@@ -95,7 +95,7 @@
     <val_0>59.7333</val_0>
 </noseoffset.width>
 <noseoffset.height>
-    <val_0>65.4222</val_0>
+    <val_0>70.4222</val_0>
 </noseoffset.height>
 <mouthminFeatureArea>
     <val_0>29.3333</val_0>
@@ -212,7 +212,7 @@
     <val_0>25.6</val_0>
 </noseoffset.width0>
 <noseoffset.height0>
-    <val_0>31.2889</val_0>
+    <val_0>35.2889</val_0>
 </noseoffset.height0>
 <mouthminFeatureArea0>
     <val_0>36.4167</val_0>
@@ -296,7 +296,7 @@
     <val_0>40</val_0>
 </righteyeoffset.height1>
 <noseminFeatureArea1>
-    <val_0>39.25</val_0>
+    <val_0>22.25</val_0>
 </noseminFeatureArea1>
 <noseROIL_X1>
     <val_0>87.4167</val_0>
@@ -320,10 +320,10 @@
     <val_0>19.9111</val_0>
 </noseoffset.width1>
 <noseoffset.height1>
-    <val_0>28.4445</val_0>
+    <val_0>35.4445</val_0>
 </noseoffset.height1>
 <mouthminFeatureArea1>
-    <val_0>42.0833</val_0>
+    <val_0>30.75</val_0>
 </mouthminFeatureArea1>
 <mouthROIL_X1>
     <val_0>40.6667</val_0>

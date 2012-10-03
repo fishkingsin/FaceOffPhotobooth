@@ -3,4 +3,10 @@
     <BACKGROUND>face_profile/backgroundc.jpg</BACKGROUND>
     <OVERLAY>face_profile/overlayc.png</OVERLAY>
     <FRAME>images/frame.png</FRAME>
+  <!--  <BLEND>face_profile/blendc.png</BLEND>-->
+    <RED>221</RED>
+     <GREEN>188</GREEN>
+     <BLUE>121</BLUE>
+     <ALPHA>0</ALPHA>
+     <GRAYSCALE>0</GRAYSCALE>
 </DATA>

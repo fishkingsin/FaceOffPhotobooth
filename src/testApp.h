@@ -31,4 +31,5 @@ private:
     float appFrameRate;
     itg::ofxStateMachine<SharedData> stateMachine;    
     ofxImageSequence image[NUM_SEQ];
+    ofSoundPlayer sndPlayer;
 };

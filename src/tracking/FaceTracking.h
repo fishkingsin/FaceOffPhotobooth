@@ -103,7 +103,7 @@ public:
         name = feature_name;
 		
         ofEnableArbTex();
-        ofImage maskImage;
+        
         
         maskImage.loadImage(mask_path);
         
@@ -186,28 +186,34 @@ public:
         ofRect(rect.x, rect.y, rect.width, rect.height);
         ofDrawBitmapString(name,rect.x, rect.y);
     }
-    void drawEffect(ofShader &alpha,ofxBlur *blur = NULL , float scale = 1.0f)
+    void drawEffect(ofShader &alpha,bool isBlack = false  , float scale = 1.0f)//ofxBlur *blur = NULL , float scale = 1.0f)
     {
-        if(blur!=NULL)
+        if(isBlack)
         {
-            blur->begin();
-            {
-				ofClearAlpha();
-                draw(0,0);
-            }
-            blur->end();
+//            blur->begin();
+//            {
+//				ofClearAlpha();
+//                draw(0,0);
+//            }
+//            blur->end();
             glPushMatrix();
             glTranslatef(rect.x,rect.y,0);
             glScalef(scale,scale,1);
             {
-                alpha.begin();
-				ofClearAlpha();
-                alpha.setUniformTexture("maskTex", mask, 1 );
+//                alpha.begin();
+//				ofClearAlpha();
+//                alpha.setUniformTexture("maskTex", mask, 1 );
+//                ofPushStyle();
+                 
+                ofPushStyle();
+                //ofFill();
+                ofSetColor(0,255);
+                maskImage.draw(0,0,rect.width,rect.height);
+//                ofRect(0,0,rect.width,rect.height);
+                ofPopStyle();
+                //blur->draw(0,0,rect.width,rect.height);
                 
-                
-                blur->draw(0,0,rect.width,rect.height);
-                
-                alpha.end();
+//                alpha.end();
             }
             glPopMatrix();
         }
@@ -236,7 +242,7 @@ public:
     ofRectangle rect;
     ofRectangle offset;
     ofRectangle	ROI;
-    
+    ofImage maskImage;
     int minArea;
 };
 
@@ -305,7 +311,7 @@ public:
     
     ofShader alphaMaskBlurShader;
     
-    ofxBlur blurs[4];
+//    ofxBlur blurs[4];
     
     ofShader alphaMaskShader;
     

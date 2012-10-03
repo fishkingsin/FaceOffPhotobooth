@@ -147,6 +147,7 @@ void CaptureState::update(){
     {
         lastCapture.setFromPixels(getSharedData().faceTracking.getPixels(),camW,camH,OF_IMAGE_COLOR);
         bCapture = false;
+        getSharedData().load();
         for(int player = 0 ; player<getSharedData().numPlayer ; player++)
         {
             char imagename[1024];
@@ -156,11 +157,11 @@ void CaptureState::update(){
             if(player==1)format <<"%0"<<getSharedData().numDigi<<"d2_.jpg";
             else format <<"%0"<<getSharedData().numDigi<<"d.jpg";
             ofLog(OF_LOG_VERBOSE, "format ",format.str().data() );
-            sprintf(imagename, format.str().c_str(), getSharedData().counter);
+            sprintf(imagename, format.str().c_str(), getSharedData().getCounter());
             char code[getSharedData().numDigi];
             
             format2 <<"%0"<<getSharedData().numDigi<<"d";
-            sprintf(code, format2.str().c_str(), getSharedData().counter);
+            sprintf(code, format2.str().c_str(), getSharedData().getCounter());
             
             getSharedData().lastCode = code;
             ofLog(OF_LOG_NOTICE, "Exported file name = ",imagename );
@@ -168,13 +169,13 @@ void CaptureState::update(){
             getSharedData().faceTracking.savingFace(player,getSharedData().path_to_save+"/"+imagename);
             getSharedData().lastFileNames.push_back(getSharedData().path_to_save+"/"+imagename);
         }
-        getSharedData().counter++;  
-        if (getSharedData().xml.pushTag("DATA")) {
-            getSharedData().xml.setValue("COUNTER", getSharedData().counter);
-            getSharedData().xml.popTag();
-            
-            
-        }
+        getSharedData().counterAdd();  
+//        if (getSharedData().xml.pushTag("DATA")) {
+//            getSharedData().xml.setValue("COUNTER", getSharedData().counter);
+//            getSharedData().xml.popTag();
+//            
+//            
+//        }
         getSharedData().save();	
         
     }
@@ -218,7 +219,7 @@ void CaptureState::draw(){
                 int y = SINGLE_Y*ofGetHeight();//178;    
                 int w = SINGLE_W*ofGetWidth();//463;
                 int h = SINGLE_H*ofGetHeight();//754;
-                capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, 0, 0, camW*0.5, camH);
+                capturedScreen.getTextureReference().drawSubsection(x+w, y, -w, h, camW*0.25, 0, camW*0.5, camH);
                 image.draw(0,0,ofGetWidth(),ofGetHeight());
             }
                 break;
@@ -239,29 +240,30 @@ void CaptureState::draw(){
         
         
         
-        switch(getSharedData().numPlayer)
-        {
-            case 1:
-                capturedScreen.draw(videoOffset.x+screenWidth+0.5*(ofGetWidth()-screenWidth)-screenWidth*0.25,
-                                    videoOffset.y,
-                                    -screenWidth,
-                                    screenHeight);
-                overlayimage.draw(0,0,ofGetWidth(),ofGetHeight());
-                break;
-            case 2:
+//        switch(getSharedData().numPlayer)
+//        {
+//            case 1:
+//                capturedScreen.draw(videoOffset.x+screenWidth+0.5*(ofGetWidth()-screenWidth),//-screenWidth*0.25,
+//                                    videoOffset.y,
+//                                    -screenWidth,
+//                                    screenHeight);
+//                overlayimage.draw(0,0,ofGetWidth(),ofGetHeight());
+//                break;
+//            case 2:
                 capturedScreen.draw(videoOffset.x+screenWidth+0.5*(ofGetWidth()-screenWidth),
                                     videoOffset.y,
                                     -screenWidth,
                                     screenHeight);
                 overlayimage.draw(0,0,ofGetWidth(),ofGetHeight());
-                break;
-        }
+//                break;
+//        }
         
     }
-    {
+    if(!showMask)
+        {
         int diff = ofGetElapsedTimef()-timeCount;
         
-        if(diff<timeremain)
+        if(diff<timeremain && !showMask)
         {
             if(!bBox2D)
             {
@@ -269,11 +271,11 @@ void CaptureState::draw(){
                 ofSetColor(0);
                 glPushMatrix();
                 {
-                    glTranslatef(ofGetWidth()-64,ofGetHeight()-104,0);
+                    glTranslatef(ofGetWidth()-(256*getSharedData().wRatio),ofGetHeight()-(125*getSharedData().hRatio),0);
                     glPushMatrix();
                     {
                         glScalef(0.5,0.5,1);
-                        getSharedData().font.drawString(ofToString(timeremain-(diff),0), - 256,0);
+                        getSharedData().font.drawString(ofToString(timeremain-(diff),0), 0,0);
                     }
                     glPopMatrix();
                     
@@ -289,24 +291,23 @@ void CaptureState::draw(){
                 glPopMatrix();
                 ofPopStyle();
             }
+            else
+            {
+                if (bBox2D && diff==5)
+                {
+                    keyPressed('C');
+                }
+            }
             
         }
         else if (diff==timeremain)
         {
-            overlayimage.clear();
-            if(getSharedData().numPlayer==1)
-            {
-                
-                overlayimage.loadImage("images/CaptureStateOverlay_b.png");
-            }else
-            {
-                overlayimage.loadImage("images/CaptureStateOverlay2_b.png");                
-            }
+            
             keyPressed('C');
             
         }
     }
-    if(showMask)mask.draw(0,0,mask.width*getSharedData().wRatio,mask.height*getSharedData().hRatio);
+    //if(showMask)mask.draw(0,0,mask.width*getSharedData().wRatio,mask.height*getSharedData().hRatio);
 	countDown.draw(ofGetWidth()/2-70,50, 200,200);
     
     ofPushStyle();
@@ -356,7 +357,7 @@ void CaptureState::stateEnter()
     //    keyPressed(OF_KEY_BACKSPACE);
     lastCapture.clear();
     bBox2D = false;
-    mask.loadImage("images/captureStateMask.jpg");
+    //mask.loadImage("images/captureStateMask.jpg");
     if(getSharedData().numPlayer==1)
     {
         image.loadImage("images/CaptureState.png");
@@ -391,9 +392,9 @@ void CaptureState::tweenCompleted(int &id)
 void CaptureState::keyPressed(int key){
     switch(key)
     {
-        case 'c':
-            bCapture = true;
-            break;
+//        case 'c':
+//            bCapture = true;
+//            break;
         case 'b':
         {
             
@@ -408,7 +409,7 @@ void CaptureState::keyPressed(int key){
 				
 				for(int i = 0 ; i < getSharedData().faceTracking.facefinder.blobs.size() ;i++)
 				{
-					if(i<= MAX_PLAYER)
+					if(i< MAX_PLAYER)
 					{
                         feature[0] = &getSharedData().faceTracking.leftEye[i];
                         feature[1] = &getSharedData().faceTracking.rightEye[i];
@@ -417,12 +418,19 @@ void CaptureState::keyPressed(int key){
                         ofRectangle rect =  getSharedData().faceTracking.faceRect[i];
                         for(int j = 0 ; j < 4 ; j++)
                         {
+                            if(feature[i]!=NULL)
+                            {
                             CustomParticle p;
                             //float density, float bounce, float friction
-                            p.setPhysics(0.3, 0.7, 0.7);
+                            p.setPhysics(0.7, 0.7, 0.7);
                             
                             float scaleX = rect.width/BUFFER_SIZE*1.0f;
                             float scaleY = rect.height/BUFFER_SIZE*1.0f;
+                            float offest = 0;
+                            if(getSharedData().numPlayer)
+                            {
+                                offest = -ofGetWidth()*0.25;
+                            }
                             float x = rect.x+(feature[j]->rect.x*scaleX);
                             float y = rect.y+(feature[j]->rect.y*scaleY);
                             float w = feature[j]->rect.width*scaleX;
@@ -437,6 +445,7 @@ void CaptureState::keyPressed(int key){
                             }
                             p.setupTheCustomData(feature[j],&getSharedData().faceTracking.alphaMaskShader,scaleX,scaleY);
                             box2d.addParticle( p);
+                            }
                         }
 						
                     }
@@ -447,10 +456,20 @@ void CaptureState::keyPressed(int key){
             
         }
             break;
+        case 'c':
         case 'C':
+            timeCount = -1000;
             //bBox2D = !bBox2D;
             if(!bBox2D){
-                
+                overlayimage.clear();
+                if(getSharedData().numPlayer==1)
+                {
+                    
+                    overlayimage.loadImage("images/CaptureStateOverlay_b.png");
+                }else
+                {
+                    overlayimage.loadImage("images/CaptureStateOverlay2_b.png");                
+                }
                 countDown.start();
                 showMask = true;
             }

@@ -77,7 +77,7 @@ public:
 	float ratio;
 	float screenWidth;
 		float screenHeight;
-	ofImage image,overlayimage,mask;
+	ofImage image,overlayimage;//,mask;
     int timeCount;
 
     ofxTween tween;

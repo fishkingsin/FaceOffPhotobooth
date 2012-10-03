@@ -1,6 +1,6 @@
 <DATA>
     <DEBUG>1</DEBUG>
-	<INIT_STATE>SelectPlayerState</INIT_STATE>
+	<INIT_STATE>IndexState</INIT_STATE>
 	<WIDTH>1440</WIDTH>
 	<HEIGHT>900</HEIGHT>
 	<FULLSCREEN>1</FULLSCREEN>
@@ -8,6 +8,5 @@
     <CAPTURE_PATH>/Library/WebServer/Documents/images</CAPTURE_PATH>
     <DIGI>5</DIGI>
     <PATH>./captures</PATH>
-    <DIGI>6</DIGI>
     <FONT_PATH>./fonts/CharlemagneStd-Bold.otf</FONT_PATH>
 </DATA>

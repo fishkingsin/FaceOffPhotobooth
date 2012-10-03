@@ -42,9 +42,11 @@
 #define STATE_EXIT 1
 class SharedData
 {
+private:
+    int counter;
 public:
     bool bDebug;
-    int counter,numDigi;
+    int numDigi;
     float wRatio,hRatio;
     string path_to_save;
     vector <string>lastFileNames;
@@ -55,21 +57,35 @@ public:
     ofxTrueTypeFontUC font;
     ofxAutoControlPanel panel;
     FaceTracking faceTracking;
+    int getCounter()
+    {
+        return counter; 
+    }
 	void load()
 	{
 		//counter = 0;
-
-		std::fstream ifs( ofToDataPath("presets.bin").c_str(), std::ios::in | std::ios::binary );
-		ifs.read( (char*) &counter, sizeof(counter) );
-		ifs.close();
+        ofxXmlSettings xml;
+        xml.loadFile("preset.xml");
+        counter = xml.getValue("COUNT",0);
+        
+//		std::fstream ifs( ofToDataPath("presets.bin").c_str(), std::ios::in | std::ios::binary );
+//		ifs.read( (char*) &counter, sizeof(counter) );
+//		ifs.close();
         ofLog(OF_LOG_NOTICE,"Loading Counter : " +ofToString( counter));
 	}
+    void counterAdd()
+    {
+        counter+=1; 
+    }
 	void save()
 	{
-		
-        std::fstream ofs( ofToDataPath("presets.bin").c_str(), std::ios::out | std::ios::binary );
-		ofs.write( (const char*)&counter, sizeof(counter) );
-		ofs.close();
+		ofxXmlSettings xml;
+         xml.setValue("COUNT",counter);
+        xml.saveFile("preset.xml");
+        
+//        std::fstream ofs( ofToDataPath("presets.bin").c_str(), std::ios::out | std::ios::binary );
+//		ofs.write( (const char*)&counter, sizeof(counter) );
+//		ofs.close();
         ofLog(OF_LOG_NOTICE,"Saving Counter : " + ofToString( counter));
 	}
 //    enum NUM_PALYER

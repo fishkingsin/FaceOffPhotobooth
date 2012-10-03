@@ -63,19 +63,19 @@ void FaceTracking::setup()
     //    blurs[1] = &blurREye;
     //    blurs[2] = &blurNose;
     //    blurs[3] = &blurMouth;
-    for(int i = 0 ; i < 4 ; i++)
-    {
-        if(i==0 || i==1 || i==3)
-        {
-            blurs[i].setup(64,48, 4, 0.2, 4);
-        }
-        else 
-        {
-            blurs[i].setup(48,64, 4, 0.2, 4);
-        }
-        blurs[i].setScale(4);
-        blurs[i].setRotation(0);
-    }
+//    for(int i = 0 ; i < 4 ; i++)
+//    {
+//        if(i==0 || i==1 || i==3)
+//        {
+//            blurs[i].setup(64,48, 4, 0.2, 4);
+//        }
+//        else 
+//        {
+//            blurs[i].setup(48,64, 4, 0.2, 4);
+//        }
+//        blurs[i].setScale(4);
+//        blurs[i].setRotation(0);
+//    }
     for(int i = 0 ; i  < MAX_PLAYER ; i++)
     {
         faceBuffer[i].allocate(BUFFER_SIZE,BUFFER_SIZE,GL_RGB);
@@ -167,7 +167,7 @@ void FaceTracking::update(bool bTrack)
 #endif
 			
             grayImage = colorImg;
-            
+            vidGrabber.update();
             processTracking(0,0,camW,camH,vidGrabber.getTextureReference());
 #endif
         }
@@ -192,6 +192,9 @@ void FaceTracking::savingFace(int nface , string fn)
 {
     
     ofSaveImage(facePixels[nface], fn);
+    faceBuffer[nface].begin();
+    ofClear(0,0,0,255);
+    faceBuffer[nface].end();
 }
 
 void FaceTracking::draw()
@@ -276,10 +279,10 @@ void FaceTracking::drawFeaturesBlur(int i)
     ofPushMatrix();
     ofTranslate(faceRect[i].x, faceRect[i].y);
     ofScale(faceRect[i].width/BUFFER_SIZE*1.0f, faceRect[i].height/BUFFER_SIZE*1.0f);
-    leftEye[i].drawEffect(alphaMaskShader,&blurs[0]);
-    rightEye[i].drawEffect(alphaMaskShader,&blurs[1]);
-    nose[i].drawEffect(alphaMaskShader,&blurs[2]);
-    mouth[i].drawEffect(alphaMaskShader,&blurs[3]);
+    leftEye[i].drawEffect(alphaMaskShader,true);//,&blurs[0]);
+    rightEye[i].drawEffect(alphaMaskShader,true);//,&blurs[1]);
+    nose[i].drawEffect(alphaMaskShader,true);//,&blurs[2]);
+    mouth[i].drawEffect(alphaMaskShader,true);//,&blurs[3]);
     ofPopMatrix();
     //        blurs[0].begin();
     //        {
