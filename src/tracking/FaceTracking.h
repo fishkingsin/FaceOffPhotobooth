@@ -92,10 +92,10 @@ public:
         norm.addVertex(ofVec2f(buffer.getWidth(), 0));
         norm.addVertex(ofVec2f(buffer.getWidth(), buffer.getHeight()));
         norm.addVertex(ofVec2f(0, buffer.getHeight()));
-        norm.addTexCoord(0);
-        norm.addTexCoord(0);
-        norm.addTexCoord(0);
-        norm.addTexCoord(0);
+        norm.addTexCoord(ofVec2f::zero());
+        norm.addTexCoord(ofVec2f::zero());
+        norm.addTexCoord(ofVec2f::zero());
+        norm.addTexCoord(ofVec2f::zero());
         norm.setMode(OF_PRIMITIVE_TRIANGLE_FAN);
         
         

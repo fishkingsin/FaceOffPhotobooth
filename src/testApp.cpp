@@ -110,10 +110,10 @@ void testApp::setup(){
 	stateMachine.changeState(xml.getValue("DATA:INIT_STATE", "IndexState"));
     stateMachine.getSharedData().panel.loadSettings("settings.xml");
     stateMachine.getSharedData().panel.hide();
-    if(!stateMachine.getSharedData().bDebug)
-    {
-        stateMachine.getSharedData().panel.unregisterKeyboardEvent();
-    }
+//    if(!stateMachine.getSharedData().bDebug)
+//    {
+////        stateMachine.getSharedData().panel.unregisterKeyboardEvent();
+//    }
     stateMachine.getSharedData().numPlayer = 1;
     for(int i = 0 ; i < NUM_SEQ ;i++)
     {

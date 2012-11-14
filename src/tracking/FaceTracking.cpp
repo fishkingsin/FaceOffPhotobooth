@@ -87,10 +87,10 @@ void FaceTracking::setup()
         normFace[i].addVertex(ofVec2f(faceBuffer[i].getWidth(), 0));
         normFace[i].addVertex(ofVec2f(faceBuffer[i].getWidth(), faceBuffer[i].getHeight()));
         normFace[i].addVertex(ofVec2f(0, faceBuffer[i].getHeight()));
-        normFace[i].addTexCoord(0);
-        normFace[i].addTexCoord(0);
-        normFace[i].addTexCoord(0);
-        normFace[i].addTexCoord(0);
+        normFace[i].addTexCoord(ofVec2f::zero());
+        normFace[i].addTexCoord(ofVec2f::zero());
+        normFace[i].addTexCoord(ofVec2f::zero());
+        normFace[i].addTexCoord(ofVec2f::zero());
         normFace[i].setMode(OF_PRIMITIVE_TRIANGLE_FAN);
 		
 		
