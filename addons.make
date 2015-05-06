@@ -1,0 +1,17 @@
+ofxMSAInteractiveObject
+ofxImageSequence
+ofxTrueTypeFontUC
+ofxTween
+ofxTimer
+ofxGLWarper
+ofxStateMachine
+ofxBlur
+ofxControlPanel
+ofxNetwork
+ofxOpenCv
+ofxOsc
+ofxXmlSettings
+ofxThreadedImageLoader
+ofxBox2d
+ofxPSBlend
+ofxUI

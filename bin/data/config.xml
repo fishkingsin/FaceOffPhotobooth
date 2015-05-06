@@ -1,11 +1,11 @@
 <DATA>
     <DEBUG>1</DEBUG>
 	<INIT_STATE>IndexState</INIT_STATE>
-	<WIDTH>1440</WIDTH>
-	<HEIGHT>900</HEIGHT>
+	<WIDTH>1920</WIDTH>
+	<HEIGHT>1080</HEIGHT>
 	<FULLSCREEN>1</FULLSCREEN>
     <COUNTDOWN>1</COUNTDOWN>
-    <CAPTURE_PATH>/Library/WebServer/Documents/images</CAPTURE_PATH>
+    <CAPTURE_PATH>./captures</CAPTURE_PATH>
     <DIGI>5</DIGI>
     <PATH>./captures</PATH>
     <FONT_PATH>./fonts/CharlemagneStd-Bold.otf</FONT_PATH>
